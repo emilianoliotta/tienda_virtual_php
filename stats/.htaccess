@@ -1,0 +1,7 @@
+AuthName "grupo44.php.info.unlp.edu.ar statistics"
+AuthType Basic
+AuthUserFile /virtualmin/grupo44/.stats-htpasswd
+require valid-user
+<Files .htpasswd>
+deny from all
+</Files>
