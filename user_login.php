@@ -41,8 +41,8 @@
 					<!-- Colector de links de la barra de navegación -->
 					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 						<ul class="nav navbar-nav">
-							<li id="home"><a href="home.html"><span class="hvr-wobble-vertical">INICIO</span></a></li>
-							<li><a href="/posts"><span class="hvr-wobble-vertical">PRODUCTOS</span></a></li>
+							<li id="home"><a href="products.php"><span class="hvr-wobble-vertical">INICIO</span></a></li>
+							<li><a href="products.php"><span class="hvr-wobble-vertical">PRODUCTOS</span></a></li>
 							<li><a href="/about"><span class="hvr-wobble-vertical">ACERCA DE</span></a></li>
 							<li><a href="/contact"><span class="hvr-wobble-vertical">CONTACTO</span></a></li>
 						</ul>
@@ -56,8 +56,8 @@
 							<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Ingresar<span class="caret"></span></a>
 							<ul class="dropdown-menu">
-								<li><a href="login.html">Acceder</a></li>
-								<li><a href="signup.html">Registrarse</a></li>
+								<li><a href="user_login.php">Acceder</a></li>
+								<li><a href="user_register.php">Registrarse</a></li>
 							</ul>
 							</li>
 						</ul>
