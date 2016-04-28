@@ -77,20 +77,22 @@
 			$data = $_GET;
 			if (!isset($data['userID'])){
 				echo "Something went wrong.";
+				header("Location: index.php");
 			}else{
 				$idUsuario = $data['userID'];
 				$link = connect();
 				$query = "SELECT apellido, nombre, email, telefono FROM `usuarios` WHERE `idUsuario` = $data[userID]";
 
 				$response = mysqli_query($link, $query);
-				if ($response){
+				if (mysqli_num_rows($response)>0){
 					$row = mysqli_fetch_array($response);
 					$apellido = $row['apellido'];
 					$nombre = $row['nombre'];
 					$email = $row['email'];
 					$telefono = $row['telefono'];	
 				}else{
-					#User not found
+					echo "User not found.";
+					header("Location: index.php");
 				}				
 			}
 
