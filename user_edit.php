@@ -71,6 +71,31 @@
 
 		<!-- CUERPO -->
 
+		<?php
+			include("connection.php");
+
+			$data = $_GET;
+			if (!isset($data['userID'])){
+				echo "Something went wrong.";
+			}else{
+				$idUsuario = $data['userID'];
+				$link = connect();
+				$query = "SELECT apellido, nombre, email, telefono FROM `usuarios` WHERE `idUsuario` = $data[userID]";
+
+				$response = mysqli_query($link, $query);
+				if ($response){
+					$row = mysqli_fetch_array($response);
+					$apellido = $row['apellido'];
+					$nombre = $row['nombre'];
+					$email = $row['email'];
+					$telefono = $row['telefono'];	
+				}else{
+					#User not found
+				}				
+			}
+
+		?>
+
 		<div id="cuerpo">
 			<div class="container-fluid">
 				<div class="row">
@@ -79,30 +104,28 @@
 						<span class="centrar margen-inferior"><img src="images/banner.png" alt="Responsive image" class="img-responsive"></span>
 						<div class="panel centrar">
 							<br>
-							<h4 class="negrita">Crear<span class="destacado"> Cuenta</span></h4>
+							<h4 class="negrita">Editar<span class="destacado"> Cuenta	</span></h4>
 							<hr>
 							<div class="container">
-								<form action="" method="POST">
+								<form action="edit_user.php" method="POST">
 									<div class="form-group">
-										<input type="email" required class="u-full-width" placeholder="E-mail" name="email">
+										<input type="email" required class="u-full-width" placeholder="E-mail" name="email" value=<?php echo '"'.$email.'"'; ?>>
 									</div>
 									<div class="form-group">
-										<input type="email" required class="u-full-width" placeholder="Repetir E-mail">
+										<input type="email" required class="u-full-width" placeholder="Repetir E-mail" value=<?php echo '"'.$email.'"'; ?>>
 									</div>
 									<div class="form-group">
-										<input type="text" class="u-full-width" placeholder="Nombre" name="name">
+										<input type="text" class="u-full-width" placeholder="Nombre" name="name" value=<?php echo '"'.$nombre.'"'; ?>>
 									</div>
 									<div class="form-group">
-										<input type="text" class="u-full-width" placeholder="Apellido" name="surname">
+										<input type="text" class="u-full-width" placeholder="Apellido" name="surname" value=<?php echo '"'.$apellido.'"'; ?>>
 									</div>
 									<div class="form-group">
-										<input type="tel" class="u-full-width" placeholder="Teléfono" name="tel">
-									</div>									
-									<div class="form-group">
-										<input type="password" required class="u-full-width" placeholder="Contraseña" name="password">
+										<input type="tel" class="u-full-width" placeholder="Teléfono" name="tel" value=<?php echo '"'.$telefono.'"'; ?>>
 									</div>
+									<input type="hidden" name="userID" value=<?php echo '"'.$idUsuario.'"'; ?>>
 									<p class="campo-obligatorio" style="display:block">Todos los campos son obligatorios</p>
-									<button type="submit" class="button">EDITAR</button>
+									<button type="submit" class="button">ACTUALIZAR</button>
 								</form>
 								
 								<div class="container margen-superior">

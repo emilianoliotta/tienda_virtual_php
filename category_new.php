@@ -81,7 +81,7 @@
 							<h4 class="negrita">Nueva<span class="destacado"> Categoría</span></h4>
 							<hr>
 							<div class="container">
-								<form>
+								<form action="new_category.php" method="POST">
 									<div class="form-group">
 										<input type="text" required class="u-full-width" placeholder="Categoría" name="category">
 									</div>
