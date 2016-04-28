@@ -83,10 +83,10 @@
 							<div class="container">
 								<form action="" method="POST">
 									<div class="form-group">
-										<input type="email" required class="u-full-width" placeholder="E-mail" name="email">
+										<input type="email" required class="u-full-width" placeholder="E-mail" name="email" autofocus>
 									</div>
 									<div class="form-group">
-										<input type="email" required class="u-full-width" placeholder="Repetir E-mail">
+										<input type="email" required class="u-full-width" placeholder="Repetir E-mail" autocomplete="off">
 									</div>
 									<div class="form-group">
 										<input type="password" required class="u-full-width" placeholder="Contraseña" name="password">
