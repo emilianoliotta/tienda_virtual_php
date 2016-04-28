@@ -79,7 +79,7 @@
 						<span class="centrar margen-inferior"><img src="images/banner.png" alt="Responsive image" class="img-responsive"></span>
 						<div class="panel centrar">
 							<br>
-							<h4 class="negrita">Crear<span class="destacado"> Cuenta</span></h4>
+							<h4 class="negrita">Editar<span class="destacado"> Cuenta</span></h4>
 							<hr>
 							<div class="container">
 								<form action="" method="POST">
@@ -97,17 +97,17 @@
 									</div>
 									<div class="form-group">
 										<input type="tel" class="u-full-width" placeholder="Teléfono" name="tel">
-									</div>									
+									</div>
 									<div class="form-group">
 										<input type="password" required class="u-full-width" placeholder="Contraseña" name="password">
 									</div>
 									<p class="campo-obligatorio" style="display:block">Todos los campos son obligatorios</p>
 									<button type="submit" class="button">EDITAR</button>
 								</form>
-								
 								<div class="container margen-superior">
-									<button type="button" class="btn btn-danger" id="change-pass-btn">¿CAMBIAR CONTRASEÑA?</button>
+									<button type="button" class="btn btn-danger btn-sm negrita" id="change-pass-btn">¿CAMBIAR CONTRASEÑA?</button>
 									<form action="change_pass.php" method="POST" id="change-pass-form" class="margen-superior">
+										<br>
 										<div class="form-group">
 											<input type="password" required class="u-full-width" placeholder="Contraseña actual" name="actual-password">
 										</div>
@@ -119,6 +119,7 @@
 										</div>
 										<button type="submit" class="button">ACEPTAR</button>
 									</form>
+									<hr>
 								</div>
 							</div>
 						</div>
