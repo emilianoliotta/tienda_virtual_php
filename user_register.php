@@ -103,9 +103,6 @@
 									<div class="form-group">
 										<input type="tel" class="u-full-width" placeholder="Teléfono" name="tel">
 									</div>
-									<div class="form-group">
-										<input type="date" class="u-full-width" name="date">
-									</div>
 									<button type="submit" class="button">REGISTRARSE</button>
 								</form>
 								<p class="campo-obligatorio">Todos los campos son obligatorios</p>
