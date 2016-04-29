@@ -12,13 +12,13 @@
 
 		$query = "SELECT * FROM  `usuarios` WHERE  `clave` = 'lala'";
 
-		$response = mysqli_query($link, $query);
+		$result = mysqli_query($link, $query);
 
 		mysql_close($link);
 
-		if ($response){
-			echo "Numero de filas recuperadas: " . mysqli_num_rows($response) . "\n";
-			while ($row = mysqli_fetch_array ($response)) {
+		if ($result){
+			echo "Numero de filas recuperadas: " . mysqli_num_rows($result) . "\n";
+			while ($row = mysqli_fetch_array ($result)) {
 				echo "Nombre: " . $row['nombre'] . ".";
 			}
 		}else {

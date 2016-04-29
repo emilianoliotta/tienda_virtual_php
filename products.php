@@ -1,4 +1,9 @@
 <!DOCTYPE html>
+<?php
+	include_once("product_class.php");
+	
+	$products = Product::getProducts();
+?>
 <html lang="es">
 	<head>
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -74,6 +79,7 @@
 			<div class="container-fluid">
 				<div class="col-xs-12 col-md-12">
 					<div class="row well">
+						<?php if (!is_null($products)){ ?>
 						<table class="table">
 							<tr>
 								<th>Foto</th>
@@ -82,16 +88,25 @@
 								<th>Caducidad</th>
 								<th>Precio</th>
 							</tr>
+							<?php
+								while ($row = mysqli_fetch_array ($products)) {
+							?>
 							<tr>
-								<td class="centrar">
-									<a href="product.php"><img src="images/ex1.jpg" class="img-responsive img-thumbnail" alt="Imagen de producto" width="90"></a>
+								<td style="width: 120px;">
+									<a href="product.php?idProducto=<?php echo $row['idProducto']; ?>"><img src="showimage.php?idProducto=<?php echo $row['idProducto'];?>" class="img-responsive img-thumbnail" alt="Imagen de producto" width="90"></a>
 								</td>
-								<td>Micro Intel Core I7 4790k 4.40ghz 8mb Haswell Socket 1150 Hd</td>
-								<td>Computación</td>
-								<td>27/07/2016</td>
-								<td>$6599,00</td>
+								<td><a href="product.php?idProducto=<?php echo $row['idProducto']; ?>"><?php echo $row['nombre'];?></a></td>
+								<td style="width: 300px;"><?php echo Product::getCategory($row['idCategoriaProducto']); ?></td>
+								<td style="width: 100px;"><?php echo date("d/m/y", strtotime($data['caducidad'])); ?></td>
+								<td style="width: 120px;">$<?php echo $row['precio']; ?></td>
 							</tr>
+							<?php
+							}
+							?>
 						</table>
+						<?php }else{
+							echo "<span>No hay productos.</span>" ;
+						} ?>
 					</div>
 				</div>
 			</div>

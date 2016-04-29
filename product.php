@@ -1,4 +1,16 @@
 <!DOCTYPE html>
+<?php
+	include_once("product_class.php");
+	
+	if (isset($_GET['idProducto'])){
+		$data = Product::getProductData($_GET['idProducto']);
+		if (is_null($data)){
+			header("Location: index.php"); #No se encontro el producto	
+		}
+	}else{
+		header("Location: index.php"); #No se especifico producto
+	}
+?>
 <html lang="es">
 	<head>
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -78,31 +90,30 @@
 							<br>
 							<div class="container">
 								<div class="row centrar">
-									<img src="images/ex1.jpg" class="img-responsive img-rounded" alt="Imagen de producto">
+									<img src="showimage.php?idProducto=<?php echo $data['idProducto'];?>" class="img-responsive img-rounded" alt="Imagen de producto">
 								</div>
 								<hr>
-								<div><span class="negrita">Categoría: </span>Computación</div>
-								<div><span class="negrita">Fecha de publicación: </span>27/04/2016</div>
-								<div><span class="negrita">Fecha de caducidad: </span>27/07/2016</div>
+								<div><span class="negrita">Categoría: </span><?php echo $data['categoria']; ?></div>
+								<div><span class="negrita">Fecha de publicación: </span><?php echo date("d/m/y", strtotime($data['publicacion'])); ?></div>
+								<div><span class="negrita">Fecha de caducidad: </span><?php echo date("d/m/y", strtotime($data['caducidad'])); ?></div>
 								<br>
 							</div>
 						</div>
 					</div>
 					<div class="col-xs-12 col-md-6">
 						<div class="well">
-							<h4 class="negrita">Micro Intel Core I7 4790k 4.40ghz 8mb Haswell Socket 1150 Hd</h4>
+							<h4 class="negrita"><?php echo $data['nombre'];?></h4>
 							<hr>
 							<div>
 								<div class="container-fluid">
 									<div class="row">
-										<p><span class="negrita">DESCRIPCIÓN: </span>Los procesadores Intel® Core ™ i7 de cuarta generación ofrecen una nueva clase de computación con nuevas características para la próxima generación de laptops y PC dispositivos 2 en 1. Velocidades ultrarrápidas y el máximo desempeño incluso en las tareas y juegos más difíciles. La revolucionaria tecnología Intel® Hyper-Threading permite que cada núcleo del procesador trabaje en dos tareas al mismo tiempo para un trabajo múltiple más fluido, mientras que los gráficos de Intel® Iris™ ofrecen impresionantes visualizaciones en 3D y y una edición de fotos y video más rápida y avanzada. Juegue del modo que quiera y supere los límites con el aceleramiento para sus necesidades de juego más exigentes, es lo máximo en desempeño.</p>
-										<p><span class="negrita">UBICACIÓN: </span>La Plata, Buenos Aires (Argentina).</p>
+										<p><span class="negrita">DESCRIPCIÓN: </span><?php echo $data['descripcion']; ?></p>
 									</div>
 								</div>
 							</div>
 							<hr>
 							<div class="centrar">
-								<p class="negrita">$6599,00</p>
+								<p class="negrita">$<?php echo $data['precio']; ?></p>
 								<a href="user_login.php" class="button">INICIAR SESIÓN PARA COMPRAR</a>
 								<p></p>
 							</div>

@@ -83,9 +83,9 @@
 				$link = connect();
 				$query = "SELECT apellido, nombre, email, telefono FROM `usuarios` WHERE `idUsuario` = $data[userID]";
 
-				$response = mysqli_query($link, $query);
-				if (mysqli_num_rows($response)>0){
-					$row = mysqli_fetch_array($response);
+				$result = mysqli_query($link, $query);
+				if (mysqli_num_rows($result)>0){
+					$row = mysqli_fetch_array($result);
 					$apellido = $row['apellido'];
 					$nombre = $row['nombre'];
 					$email = $row['email'];

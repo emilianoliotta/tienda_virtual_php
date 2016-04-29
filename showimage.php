@@ -1,15 +1,15 @@
 <?php
-	include("connection.php");
+	include_once("connection.php");
 
 	// se recibe el valor que identifica la imagen en la tabla
-	$id = $_GET['idproducto'];
+	$id = $_GET['idProducto'];
 
 
 	$link = connect();
 	// se recupera la información de la imagen
 	$query = "SELECT contenidoimagen, tipoimagen FROM `productos` WHERE `idProducto` = $id ";
-	$response = mysqli_query($link, $query);
-	$row = mysqli_fetch_array($response);
+	$result = mysqli_query($link, $query);
+	$row = mysqli_fetch_array($result);
 
 	mysqli_close($link);
 
