@@ -1,10 +1,8 @@
 <?php
-	error_reporting(E_ALL);
-	ini_set('display_errors', 'on');
+	include_once("user_class.php");
 	session_start();
-	if (!isset($_SESSION['email'])){
+	if (!User::existsSession()){
 		if (isset($_POST['register'])){
-			include_once("user_class.php");
 			$data = array(
 				'email' => $_POST['email'],
 				'email_repetido' => $_POST['email_repetido'],
@@ -19,6 +17,7 @@
 	}
 	else {
 		header("Location:index.php");
+				$_SESSION['message_error'] = "Ya existe una sesión iniciada.";
 	}
 ?>
 
@@ -47,6 +46,10 @@
 		<!--fin scripts JS-->
 	</head>
 	<body>
+
+	<?php
+		include_once("messages.php");
+	?>
 
 		<!--HEADER -->
 

@@ -9,7 +9,7 @@
 			$query = "SELECT nombre, descripcion, precio, publicacion, caducidad, idCategoriaProducto, idUsuario, idProducto FROM `productos` WHERE `idProducto` = $id";
 
 			$result = mysqli_query($link, $query);
-			
+
 			if (mysqli_num_rows($result) > 0){
 				$row = mysqli_fetch_array($result);
 				$nombre = $row['nombre'];

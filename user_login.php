@@ -1,15 +1,14 @@
 <?php
-	error_reporting(E_ALL);
-	ini_set('display_errors', 'on');
+	include_once("user_class.php");
 	session_start();
-	if (!isset($_SESSION['email'])){
+	if (!User::existsSession()){
 		if (isset($_POST['login'])){
-			include_once("user_class.php");
 			User::login($_POST['email'], $_POST['clave']);
 		}
 	}
 	else {
 		header("Location:index.php");
+		$_SESSION['message_error'] = "Ya existe una sesión iniciada.";
 	}
 ?>
 
@@ -38,6 +37,10 @@
 		<!--fin scripts JS-->
 	</head>
 	<body>
+
+	<?php
+		include_once("messages.php");
+	?>
 
 		<!--HEADER -->
 

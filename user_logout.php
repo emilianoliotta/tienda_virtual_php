@@ -1,7 +1,7 @@
 <?php
+	include_once("user_class.php");
 	session_start();
-	if (isset($_SESSION['email'])){
-		include_once("user_class.php");
+	if (User::existsSession()){
 		User::logout($_POST['email']);
 	}
 	else {

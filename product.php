@@ -5,7 +5,7 @@
 	if (isset($_GET['idProducto'])){
 		$data = Product::getProductData($_GET['idProducto']);
 		if (is_null($data)){
-			header("Location: index.php"); #No se encontro el producto	
+			header("Location: index.php"); #No se encontro el producto
 		}
 	}else{
 		header("Location: index.php"); #No se especifico producto
