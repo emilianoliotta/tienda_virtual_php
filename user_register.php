@@ -1,3 +1,27 @@
+<?php
+	error_reporting(E_ALL);
+	ini_set('display_errors', 'on');
+	session_start();
+	if (!isset($_SESSION['email'])){
+		if (isset($_POST['register'])){
+			include_once("user_class.php");
+			$data = array(
+				'email' => $_POST['email'],
+				'email_repetido' => $_POST['email_repetido'],
+				'clave' => $_POST['clave'],
+				'clave_repetida' => $_POST['clave_repetida'],
+				'nombre' => $_POST['nombre'],
+				'apellido' => $_POST['apellido'],
+				'telefono' => $_POST['telefono']
+			);
+			User::register($data);
+		}
+	}
+	else {
+		header("Location:index.php");
+	}
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 	<head>
@@ -82,29 +106,29 @@
 							<h4 class="negrita">Crear<span class="destacado"> Cuenta</span></h4>
 							<hr>
 							<div class="container">
-								<form action="" method="POST">
+								<form action="" method="POST" action="user_register.php">
 									<div class="form-group">
 										<input type="email" required class="u-full-width" placeholder="E-mail" name="email" autofocus>
 									</div>
 									<div class="form-group">
-										<input type="email" required class="u-full-width" placeholder="Repetir E-mail" autocomplete="off">
+										<input type="email" required class="u-full-width" placeholder="Repetir E-mail" autocomplete="off" name="email_repetido">
 									</div>
 									<div class="form-group">
-										<input type="password" required class="u-full-width" placeholder="Contraseña" name="password">
+										<input type="password" required class="u-full-width" placeholder="Contraseña" name="clave">
 									</div>
 									<div class="form-group">
-										<input type="password" required class="u-full-width" placeholder="Repetir contraseña">
+										<input type="password" required class="u-full-width" placeholder="Repetir contraseña" name="clave_repetida">
 									</div>
 									<div class="form-group">
-										<input type="text" class="u-full-width" placeholder="Nombre" name="name">
+										<input type="text" class="u-full-width" placeholder="Nombre" name="nombre">
 									</div>
 									<div class="form-group">
-										<input type="text" class="u-full-width" placeholder="Apellido" name="surname">
+										<input type="text" class="u-full-width" placeholder="Apellido" name="apellido">
 									</div>
 									<div class="form-group">
-										<input type="tel" class="u-full-width" placeholder="Teléfono" name="tel">
+										<input type="tel" class="u-full-width" placeholder="Teléfono" name="telefono">
 									</div>
-									<button type="submit" class="button">REGISTRARSE</button>
+									<button type="submit" class="button" name="register">REGISTRARSE</button>
 								</form>
 								<p class="campo-obligatorio">Todos los campos son obligatorios</p>
 							</div>

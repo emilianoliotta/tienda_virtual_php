@@ -1,3 +1,18 @@
+<?php
+	error_reporting(E_ALL);
+	ini_set('display_errors', 'on');
+	session_start();
+	if (!isset($_SESSION['email'])){
+		if (isset($_POST['login'])){
+			include_once("user_class.php");
+			User::login($_POST['email'], $_POST['clave']);
+		}
+	}
+	else {
+		header("Location:index.php");
+	}
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 	<head>
@@ -82,14 +97,14 @@
 							<h4 class="negrita">Iniciar<span class="destacado"> Sesión</span></h4>
 							<hr>
 							<div class="container">
-								<form>
+								<form method="POST" action="user_login.php">
 									<div class="form-group">
-										<input type="email" required class="u-full-width" placeholder="E-mail" name="email">
+										<input type="email" required class="u-full-width" placeholder="E-mail" name="email" autofocus>
 									</div>
 									<div class="form-group">
-										<input type="password" required class="u-full-width" placeholder="Contraseña" name="password">
+										<input type="password" required class="u-full-width" placeholder="Contraseña" name="clave">
 									</div>
-									<button type="submit" class="button">INICIAR SESIÓN</button>
+									<button type="submit" class="button" name="login">INICIAR SESIÓN</button>
 								</form>
 							</div>
 						</div>
