@@ -1,26 +1,3 @@
-<?php
-	include_once("user_class.php");
-	session_start();
-	if (!User::existsSession()){
-		if (isset($_POST['register'])){
-			$data = array(
-				'email' => $_POST['email'],
-				'email_repetido' => $_POST['email_repetido'],
-				'clave' => $_POST['clave'],
-				'clave_repetida' => $_POST['clave_repetida'],
-				'nombre' => $_POST['nombre'],
-				'apellido' => $_POST['apellido'],
-				'telefono' => $_POST['telefono']
-			);
-			User::register($data);
-		}
-	}
-	else {
-		header("Location:index.php");
-				$_SESSION['message_error'] = "Ya existe una sesión iniciada.";
-	}
-?>
-
 <!DOCTYPE html>
 <html lang="es">
 	<?php
@@ -46,7 +23,7 @@
 							<h4 class="negrita">Crear<span class="destacado"> Cuenta</span></h4>
 							<hr>
 							<div class="container">
-								<form action="" method="POST" action="user_register.php">
+								<form method="POST" action="register_user.php">
 									<div class="form-group">
 										<input type="email" required class="u-full-width" placeholder="E-mail" name="email" autofocus>
 									</div>
@@ -80,14 +57,7 @@
 
 		<!--FIN del CUERPO -->
 
-		<!--FOOTER -->
-
-		<footer>
-			<div class="">Copyright © 2016</div>
-				<div class="destacado"><a href="#">Términos y condiciones</a> | <a href="#">Políticas de privacidad</a> | <a href="#">Ayuda</a></div>
-		</footer>
-
-		<!--FIN del FOOTER -->
+		<?php include_once("footer.php"); ?>
 
 	</body>
 </html>

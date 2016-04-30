@@ -1,17 +1,3 @@
-<?php
-	include_once("user_class.php");
-	session_start();
-	if (!User::existsSession()){
-		if (isset($_POST['login'])){
-			User::login($_POST['email'], $_POST['clave']);
-		}
-	}
-	else {
-		header("Location:index.php");
-		$_SESSION['message_error'] = "Ya existe una sesión iniciada.";
-	}
-?>
-
 <!DOCTYPE html>
 <html lang="es">
 	<?php
@@ -36,7 +22,7 @@
 							<h4 class="negrita">Iniciar<span class="destacado"> Sesión</span></h4>
 							<hr>
 							<div class="container">
-								<form method="POST" action="user_login.php">
+								<form method="POST" action="login_user.php">
 									<div class="form-group">
 										<input type="email" required class="u-full-width" placeholder="E-mail" name="email" autofocus>
 									</div>
@@ -45,6 +31,11 @@
 									</div>
 									<button type="submit" class="button" name="login">INICIAR SESIÓN</button>
 								</form>
+								<hr>
+								<div class="row">
+									<a href="user_register.php" class="button">¿NO TIENE UNA CUENTA? REGÍSTRESE</a>
+								</div>
+								<br>
 							</div>
 						</div>
 					</div>
@@ -54,14 +45,7 @@
 
 		<!--FIN del CUERPO -->
 
-		<!--FOOTER -->
-
-		<footer>
-			<div class="">Copyright © 2016</div>
-				<div class="destacado"><a href="#">Términos y condiciones</a> | <a href="#">Políticas de privacidad</a> | <a href="#">Ayuda</a></div>
-		</footer>
-
-		<!--FIN del FOOTER -->
+		<?php include_once("footer.php"); ?>
 
 	</body>
 </html>

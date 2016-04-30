@@ -3,8 +3,9 @@
 	session_start();
 	if (User::existsSession()){
 		User::logout($_POST['email']);
+		header("Location:user_login.php");
 	}
 	else {
-		header("Location:index.php");
+		header("Location:products.php");
 	}
 ?>

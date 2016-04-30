@@ -19,10 +19,11 @@
 
 				$_SESSION['email'] = $email;
 
-				header("Location:index.php");
-				$_SESSION['message_success'] = "Sesión iniciado exitosamente.";
+				header("Location:products.php");
+				$_SESSION['message_success'] = "Sesión iniciada exitosamente.";
 			}
 			else {
+				header("Location:user_login.php");
 				$_SESSION['message_error'] = "Datos incorrectos.";
 			}
 
@@ -31,13 +32,14 @@
 		public static function logout($email){
 			session_start();
 			session_destroy();
-			header("Location:user_login.php");
+			session_start();
 			$_SESSION['message_success'] = "Sesión cerrada exitosamente.";
 		}
 
 		public static function register($data){
 
 			if (!User::validateData($data)){
+				header("Location:user_register.php");
 				return NULL;
 			}
 

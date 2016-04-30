@@ -2,24 +2,22 @@ $(document).ready(function(){
 
 
 	// MESSAGES - Animación de las notificaciones
-	$("#message-wrapper").hide();
-	$("#message-wrapper").slideToggle();
-	setTimeout(function(){
-		$("#message-wrapper").fadeOut("slow", function(){
-			$(this).remove();
-		})
-	}, 5000);
-
+	message = $("#message-wrapper");
+	message.slideDown('slow', function(){
+		message.removeClass('hidden');
+	});
+	message.delay(2000);
+	message.slideUp('slow', function(){
+		message.addClass('hidden');
+	});
 
 
 	// USER EDIT - Botón de cambio de contraseña
 	$("#change-pass-form").hide();
-
 	$("#change-pass-btn").on('click', function(){
-
-		var button = $("#change-pass-btn");
-		var button_text = button.text();
-
+		button = $("#change-pass-btn");
+		button_text = button.text();
+		
 		if (button_text == "CANCELAR CAMBIO DE CONTRASEÑA")
 			button_text = "¿CAMBIAR CONTRASEÑA?";
 		else

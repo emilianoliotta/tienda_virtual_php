@@ -5,10 +5,10 @@
 	if (isset($_GET['idProducto'])){
 		$data = Product::getProductData($_GET['idProducto']);
 		if (is_null($data)){
-			header("Location: index.php"); #No se encontro el producto
+			header("Location: products.php"); #No se encontro el producto
 		}
 	}else{
-		header("Location: index.php"); #No se especifico producto
+		header("Location: products.php"); #No se especifico producto
 	}
 ?>
 <html lang="es">
@@ -67,14 +67,7 @@
 
 		<!--FIN del CUERPO -->
 
-		<!--FOOTER -->
-
-		<footer>
-			<div class="">Copyright © 2016</div>
-				<div class="destacado"><a href="#">Términos y condiciones</a> | <a href="#">Políticas de privacidad</a> | <a href="#">Ayuda</a></div>
-		</footer>
-
-		<!--FIN del FOOTER -->
+		<?php include_once("footer.php"); ?>
 
 	</body>
 </html>

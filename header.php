@@ -40,7 +40,6 @@
 					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 						<ul class="nav navbar-nav">
 							<li id="home"><a href="products.php"><span class="hvr-wobble-vertical">INICIO</span></a></li>
-							<li><a href="products.php"><span class="hvr-wobble-vertical">PRODUCTOS</span></a></li>
 							<li><a href="/about"><span class="hvr-wobble-vertical">ACERCA DE</span></a></li>
 							<li><a href="/contact"><span class="hvr-wobble-vertical">CONTACTO</span></a></li>
 						</ul>

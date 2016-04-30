@@ -1,23 +1,3 @@
-<?php
-	include_once("user_class.php");
-	session_start();
-	if (User::existsSession()){
-		if (isset($_POST['update'])){
-			$data = array(
-				'clave' => $_POST['clave'],
-				'nombre' => $_POST['nombre'],
-				'apellido' => $_POST['apellido'],
-				'telefono' => $_POST['telefono']
-			);
-			User::update($data);
-		}
-	}
-	else {
-		header("Location:index.php");
-		$_SESSION['message_error'] = "No existe una sesión iniciada.";
-	}
-?>
-
 <!DOCTYPE html>
 <html lang="es">
 	<?php
@@ -45,7 +25,7 @@
 							<h4 class="negrita">Editar<span class="destacado"> Cuenta</span></h4>
 							<hr>
 							<div class="container">
-								<form action="user_edit.php" method="POST">
+								<form action="edit_user.php" method="POST">
 									<div class="form-group">
 										<input type="text" class="u-full-width" placeholder="Nombre" name="nombre" value=<?php echo '"' . $current_user['nombre'] . '"'; ?> required>
 									</div>
@@ -88,14 +68,7 @@
 
 		<!--FIN del CUERPO -->
 
-		<!--FOOTER -->
-
-		<footer>
-			<div class="">Copyright © 2016</div>
-				<div class="destacado"><a href="#">Términos y condiciones</a> | <a href="#">Políticas de privacidad</a> | <a href="#">Ayuda</a></div>
-		</footer>
-
-		<!--FIN del FOOTER -->
+		<?php include_once("footer.php"); ?>
 
 	</body>
 </html>
