@@ -87,7 +87,7 @@
 							<div class="container">
 								<form action="new_category.php" method="POST">
 									<div class="form-group">
-										<input type="text" required class="u-full-width" placeholder="Categoría" name="category">
+										<input type="text" required class="u-full-width" placeholder="Categoría" name="category" autofocus>
 									</div>
 									<button type="submit" class="button">Aceptar</button>
 								</form>
