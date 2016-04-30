@@ -207,20 +207,26 @@ body > footer{
 	position: fixed;
 	top: 0px;
 	z-index: 9999;
-	height: 3em;
+	/*height: 3em;*/
 	width: 100%;
 	text-align: center;
+	padding-top: 0.6em;
+  padding-bottom: 0.7em;
+  font-size: 1.1em;
 	color: black;
 	opacity:0.85;
+	box-shadow: 0px 2px 3px grey;
+  border-bottom-left-radius: 0.3em;
+  border-bottom-right-radius: 0.3em;
 }
 
 
 .message-success{
-	background-color: lightgreen;
+	background-color: #207320;
 }
 
 .message-error{
-	background-color: red;
+	background-color: #D20000;
 }
 
 

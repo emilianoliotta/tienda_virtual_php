@@ -1,6 +1,20 @@
 $(document).ready(function(){
 
+
+	// MESSAGES - Animación de las notificaciones
+	$("#message-wrapper").hide();
+	$("#message-wrapper").slideToggle();
+	setTimeout(function(){
+		$("#message-wrapper").fadeOut("slow", function(){
+			$(this).remove();
+		})
+	}, 5000);
+
+
+
 	// USER EDIT - Botón de cambio de contraseña
+	$("#change-pass-form").hide();
+
 	$("#change-pass-btn").on('click', function(){
 
 		var button = $("#change-pass-btn");
@@ -15,5 +29,7 @@ $(document).ready(function(){
 		$("#change-pass-btn").text(button_text);
 		$("#change-pass-form").slideToggle();
 	});
+
+
 
 });
