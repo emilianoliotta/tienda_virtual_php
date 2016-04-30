@@ -74,7 +74,7 @@
 			$query = "SELECT nombre FROM `categorias_productos` WHERE `idCategoriaProducto` = $id";
 
 			$result = mysqli_query($link, $query);
-			mysql_close($link);
+			mysqli_close($link);
 			if (mysqli_num_rows($result) > 0){
 				$row = mysqli_fetch_array($result);
 				return $row['nombre'];

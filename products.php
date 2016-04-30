@@ -24,6 +24,7 @@
 		<script src="js/jquery-1.12.3.min.js"></script>
 		<script src="js/bootstrap.js"></script>
 		<script src="js/npm.js"></script>
+		<script src="js/custom.js"></script>
 		<!--fin scripts JS-->
 	</head>
 	<body>
@@ -97,7 +98,7 @@
 								</td>
 								<td><a href="product.php?idProducto=<?php echo $row['idProducto']; ?>"><?php echo $row['nombre'];?></a></td>
 								<td style="width: 300px;"><?php echo Product::getCategory($row['idCategoriaProducto']); ?></td>
-								<td style="width: 100px;"><?php echo date("d/m/y", strtotime($data['caducidad'])); ?></td>
+								<td style="width: 100px;"><?php echo date("d/m/y", strtotime($row['caducidad'])); ?></td>
 								<td style="width: 120px;">$<?php echo $row['precio']; ?></td>
 							</tr>
 							<?php

@@ -131,7 +131,7 @@
 								</form>
 								<div class="container margen-superior">
 									<button type="button" class="btn btn-danger btn-sm negrita" id="change-pass-btn">¿CAMBIAR CONTRASEÑA?</button>
-									<form action="change_pass.php" method="POST" id="change-pass-form" class="margen-superior">
+									<form action="change_pass.php" method="POST" id="change-pass-form" class="margen-superior hidden">
 										<br>
 										<div class="form-group">
 											<input type="password" required class="u-full-width" placeholder="Contraseña actual" name="actual-password">

@@ -19,6 +19,7 @@
 		<script src="js/jquery-1.12.3.min.js"></script>
 		<script src="js/bootstrap.js"></script>
 		<script src="js/npm.js"></script>
+		<script src="js/custom.js"></script>
 		<!--fin scripts JS-->
 	</head>
 	<body>

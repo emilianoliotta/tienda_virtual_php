@@ -70,6 +70,10 @@ body > footer{
 	background-color: black;
 }
 
+.hidden{
+	display:none;
+}
+
 /* =================== FLASH ======================
 ================================================ */
 
@@ -172,6 +176,10 @@ body > footer{
 	text-align: center;
 }
 
+.centrar-vertical{
+	vertical-align: middle;
+}
+
 .derecha{
 	text-align: right;
 }
@@ -191,6 +199,30 @@ body > footer{
 ================ FIN TEXTOS =====================*/
 
 
-#change-pass-form{
-	display:none;
+/* ================ MESSAGES ===================
+================================================ */
+
+
+.message{
+	position: fixed;
+	top: 0px;
+	z-index: 9999;
+	height: 3em;
+	width: 100%;
+	text-align: center;
+	color: black;
+	opacity:0.85;
 }
+
+
+.message-success{
+	background-color: lightgreen;
+}
+
+.message-error{
+	background-color: red;
+}
+
+
+/* ================================================
+================ FIN MESSAGES =====================*/
