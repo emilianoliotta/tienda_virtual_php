@@ -79,7 +79,8 @@
 			include_once("connection.php");
 			$link = connect();
 
-			$idUsuario = User::current()['idUsuario']; // No se utliza el ID del formulario para evitar que un usario modifique la información de otro usuario
+			$user_current = User::current();
+			$idUsuario = $user_current['idUsuario']; // No se utliza el ID del formulario para evitar que un usario modifique la información de otro usuario
 			$nombre = mysqli_escape_string($link, $data['nombre']);
 			$apellido = mysqli_escape_string($link, $data['apellido']);
 			$telefono = mysqli_escape_string($link, $data['telefono']);
@@ -182,7 +183,8 @@
 			include_once("connection.php");
 			$link = connect();
 
-			$idUsuario = User::current()['idUsuario'];
+			$user_current = User::current();
+			$idUsuario = $user_current['idUsuario'];
 			$query = "SELECT clave FROM `usuarios` WHERE `idUsuario` = '$idUsuario'";
 			$result = mysqli_fetch_array(mysqli_query($link, $query));
 			mysqli_close($link);

@@ -3,7 +3,8 @@
 	ini_set('display_errors', 'on');
 	include_once("user_class.php");
 	if (User::existsSession()){
-		$user_email = User::current()['email'];
+		$user_current = User::current();
+		$user_email = $user_current['email'];
 		$dropdown_content = '
 			<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">' . $user_email . '<span class="caret"></span></a>
 			<ul class="dropdown-menu">
