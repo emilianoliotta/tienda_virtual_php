@@ -1,7 +1,7 @@
 <?php
   error_reporting(E_ALL);
   ini_set('display_errors', 'on');
-  
+
 	include_once("user_class.php");
 	session_start();
 
@@ -37,11 +37,11 @@
             }
           }else {
             $_SESSION['message_error'] = "ERROR - La contraseña ingresada es incorrecta";
-            header("Location: user_edit.php")
+            header("Location: user_edit.php");
           }
         }else {
           $_SESSION['message_error'] = "ERROR - No se encontro el usuario en la Base de Datos";
-          header("Location: user_edit.php")
+          header("Location: user_edit.php");
         }
       }else {
         $_SESSION['message_error'] = "ERROR - Las contraseñas no coinciden";
