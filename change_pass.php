@@ -21,13 +21,13 @@
         $current_user = User::current();
         # Busco en la DB la tupla del usuario actual
         $current_user_email = $current_user['email'];
-        $query = "SELECT clave FROM `usuarios` WHERE `email` = '$current_user_email'";
+        $query = "SELECT clave, idUsuario FROM `usuarios` WHERE `email` = '$current_user_email'";
         $result = mysqli_query($link, $query);
         if (mysqli_num_rows($result) > 0){ # En caso de una query exitosa
           $row = mysqli_fetch_array($result);
           if ($row['clave'] == $data['clave_actual']){ # Si la clave actual ingresada coincide
-            $query = "UPDATE  `usuarios` SET  `clave` =  $data['nueva_clave'] WHERE  `idUsuario` = $row['idUsuario'] LIMIT 1"; # Actualizo la clave
-            $result = $mysqli_query($link, $query);
+            $query = "UPDATE `usuarios` SET `clave` = '$data[nueva_clave]' WHERE `idUsuario` = '$row[idUsuario]'"; # Actualizo la clave
+            $result = mysqli_query($link, $query);
             if ($result){ # Dependiendo del resultado, lo informo y redirijo
               $_SESSION['message_success'] = "Se cambió la contraseña exitosamente";
               header("Location: user_edit.php");
