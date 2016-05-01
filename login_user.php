@@ -5,7 +5,12 @@
   }
 	if (!User::existsSession()){
 		if (isset($_POST['login'])){
-			User::login($_POST['email'], $_POST['clave']);
+			try {
+					User::login($_POST['email'], $_POST['clave']);
+			} catch (Exception $exception) {
+				header("Location:user_login.php");
+				$_SESSION['message_error'] = $exception->getMessage();
+			}
 		}
 	}
 	else {

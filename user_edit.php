@@ -6,7 +6,7 @@
 	if (!User::existsSession()) {
 		header("Location:user_login.php");
 	}
- ?>
+?>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -63,7 +63,7 @@
 										<div class="form-group">
 											<input type="password" required class="u-full-width" placeholder="Repetir contraseña nueva" name="nueva_clave_repetida">
 										</div>
-										<button type="submit" class="button" name="submit">ACEPTAR</button>
+										<button type="submit" class="button" name="change_password">ACEPTAR</button>
 									</form>
 									<hr>
 								</div>

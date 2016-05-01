@@ -11,7 +11,16 @@
 				'apellido' => $_POST['apellido'],
 				'telefono' => $_POST['telefono']
 			);
-			User::update($data);
+
+			$success = false;
+			try {
+				$success = User::update($data);
+			} catch (Exception $exception) {
+				$_SESSION['message_error'] = $exception->getMessage();
+			}
+			if ($success){
+				$_SESSION['message_success'] = "Datos de cuenta actualizados.";
+			}
 			header("Location:user_edit.php");
 		}
 	}
