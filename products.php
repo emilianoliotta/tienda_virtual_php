@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <?php
 	include_once("product_class.php");
-	
+
 	$products = Product::getProducts();
 ?>
 <html lang="es">
-	<?php
-		include_once("head.php");
-	?>
+	<?php include_once("head.php"); ?>
 	<body>
 
 		<?php

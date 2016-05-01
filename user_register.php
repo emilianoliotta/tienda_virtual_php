@@ -1,8 +1,14 @@
+<?php
+	include_once("user_class.php");
+	session_start();
+	if (User::existsSession()) {
+		header("Location:user_edit.php");
+	}
+ ?>
+
 <!DOCTYPE html>
 <html lang="es">
-	<?php
-		include_once("head.php");
-	?>
+	<?php include_once("head.php");	?>
 	<body>
 
 		<?php

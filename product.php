@@ -5,16 +5,14 @@
 	if (isset($_GET['idProducto'])){
 		$data = Product::getProductData($_GET['idProducto']);
 		if (is_null($data)){
-			header("Location: products.php"); #No se encontro el producto
+			header("Location: product_not_found.php"); #No se encontro el producto
 		}
 	}else{
 		header("Location: products.php"); #No se especifico producto
 	}
 ?>
 <html lang="es">
-	<?php
-		include_once("head.php");
-	?>
+	<?php include_once("head.php"); ?>
 	<body>
 
 		<?php
