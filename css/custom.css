@@ -42,6 +42,22 @@ body > footer{
 	position: relative;
 }
 
+.categories-panel{
+  padding-top: 2em;
+  margin-bottom: -3em;
+}
+
+#remove-filter-button{
+  display: block;
+  color: #e72d2b;
+  margin-top: 0em;
+  margin-bottm: 0.1em;
+}
+
+.container-small{
+  width: 20em;
+}
+
 .bloque-derecha{
 	float:right;
 	clear:both;
@@ -196,6 +212,10 @@ body > footer{
 	color: red;
 	font-weight: bold;
 	display: inline;
+}
+
+.category-link{
+  margin: 1em;
 }
 
 /* ================================================

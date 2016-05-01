@@ -47,12 +47,26 @@
 			return $data;
 		}
 
-		public static function getProducts(){
+		public static function getProducts($category_id){
 
 			include_once("connection.php");
 
 			$link = connect();
-			$query = "SELECT nombre, precio, caducidad, idCategoriaProducto, idProducto FROM `productos` WHERE `caducidad` >= CURDATE()";
+			if(session_id() == '') {
+				session_start();
+			}
+			if (isset($category_id) && $category_id == '0'){
+				unset($category_id);
+				unset($_SESSION['category_id']);
+			}
+			if (isset($category_id)){
+				$_SESSION['category_id'] = $category_id;
+				$query = "SELECT nombre, precio, caducidad, idCategoriaProducto, idProducto FROM `productos` WHERE `caducidad` >= CURDATE() AND `idCategoriaProducto` = '$category_id'";
+			}elseif(isset($_SESSION['category_id'])){
+				$query = "SELECT nombre, precio, caducidad, idCategoriaProducto, idProducto FROM `productos` WHERE `caducidad` >= CURDATE() AND `idCategoriaProducto` = '$_SESSION[category_id]'";
+			}else{
+				$query = "SELECT nombre, precio, caducidad, idCategoriaProducto, idProducto FROM `productos` WHERE `caducidad` >= CURDATE()";
+			}
 
 			$result = mysqli_query($link, $query);
 			mysqli_close($link);
@@ -62,32 +76,31 @@
 			return NULL;
 		}
 
-		public static function getProductsForSearch($search){
+		public static function getProductsForSearch($search, $category_id){
 
 			include_once("connection.php");
 
 			$link = connect();
-			$query = "SELECT nombre, precio, caducidad, idCategoriaProducto, idProducto FROM `productos` WHERE (`nombre` LIKE '%$search%' OR `descripcion` LIKE '%$search%') AND `caducidad` >= CURDATE()";
+			if(session_id() == '') {
+				session_start();
+			}
+			if (isset($category_id) && $category_id == '0'){
+				unset($category_id);
+				unset($_SESSION['category_id']);
+			}
+			if (isset($category_id)){
+				$_SESSION['category_id'] = $category_id;
+				$query = "SELECT nombre, precio, caducidad, idCategoriaProducto, idProducto FROM `productos` WHERE (`nombre` LIKE '%$search%' OR `descripcion` LIKE '%$search%') AND (`caducidad` >= CURDATE()) AND (`idCategoriaProducto` = '$category_id')";
+			}elseif(isset($_SESSION['category_id'])) {
+				$query = "SELECT nombre, precio, caducidad, idCategoriaProducto, idProducto FROM `productos` WHERE (`nombre` LIKE '%$search%' OR `descripcion` LIKE '%$search%') AND `caducidad` >= CURDATE() AND (`idCategoriaProducto` = '$_SESSION[category_id]')";
+			}else {
+				$query = "SELECT nombre, precio, caducidad, idCategoriaProducto, idProducto FROM `productos` WHERE (`nombre` LIKE '%$search%' OR `descripcion` LIKE '%$search%') AND `caducidad` >= CURDATE()";
+			}
 
 			$result = mysqli_query($link, $query);
 			mysqli_close($link);
 			if (mysqli_num_rows($result) > 0){
 				return $result;
-			}
-			return NULL;
-		}
-
-		public static function getCategory($id){
-			include_once("connection.php");
-
-			$link = connect();
-			$query = "SELECT nombre FROM `categorias_productos` WHERE `idCategoriaProducto` = $id";
-
-			$result = mysqli_query($link, $query);
-			mysqli_close($link);
-			if (mysqli_num_rows($result) > 0){
-				$row = mysqli_fetch_array($result);
-				return $row['nombre'];
 			}
 			return NULL;
 		}
