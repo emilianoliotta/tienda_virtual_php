@@ -92,6 +92,26 @@
 			return $result;
 		}
 
+		public static function updatePassword($data){
+
+			# Verificación de contraseñas
+			$password_verification = User::validatePasswordChange($data['clave_actual'], $data['nueva_clave'], $data{'nueva_clave_repetida'});
+			if ($password_verification != User::NO_ERROR){
+				throw new Exception($password_verification, 1);
+			}
+
+			include_once("connection.php");
+			$link = connect();
+			$user_current = User::current();
+			$idUsuario = $user_current['idUsuario'];
+			$clave = mysqli_escape_string($link, $data['nueva_clave']);
+			$query = "UPDATE `usuarios` SET clave = '$clave' WHERE idUsuario = '$idUsuario'";
+			$result = mysqli_query($link, $query);
+			mysqli_close($link);
+
+			return $result;
+		}
+
 		/* Métodos de manejo de sesión */
 
 		// Devuelve TRUE si existe una sesión de usuario activa, FALSE en caso contrario
@@ -177,7 +197,21 @@
 			$query = "SELECT clave FROM `usuarios` WHERE `idUsuario` = '$idUsuario'";
 			$result = mysqli_fetch_array(mysqli_query($link, $query));
 			mysqli_close($link);
-			return ((string)$result['clave'] == (string )$password);
+			return ((string)$result['clave'] == (string)$password);
+		}
+
+		// Validación de datos para cambio de contraseñas
+		private static function validatePasswordChange($password, $new_password, $new_repeated_passwod){
+			if (!User::validatePassword($password)){
+				return "Contraseña incorrecta.";
+			}
+			if(strlen($new_password) < 8){
+				return "La contraseña debe tener como mínimo 8 caracteres.";
+			}
+			if ($new_password != $new_repeated_passwod){
+				return "Las contraseñas no coinciden.";
+			}
+			return User::NO_ERROR;
 		}
 	}
 ?>
