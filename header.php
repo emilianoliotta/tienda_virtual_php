@@ -2,6 +2,10 @@
 	error_reporting(E_ALL);
 	ini_set('display_errors', 'on');
 	include_once("user_class.php");
+	include_once("category_class.php");
+
+	$categories = Category::getCategories();
+
 	if (User::existsSession()){
 		$user_current = User::current();
 		$user_email = $user_current['email'];
@@ -42,14 +46,16 @@
 						<ul class="nav navbar-nav">
 							<li id="home"><a href="products.php"><span class="hvr-wobble-vertical">INICIO</span></a></li>
 							<li><a href="/about"><span class="hvr-wobble-vertical">ACERCA DE</span></a></li>
-							<li><a href="/contact"><span class="hvr-wobble-vertical">CONTACTO</span></a></li>
 						</ul>
-							<form class="navbar-form navbar-left" role="search">
+							<form class="navbar-form navbar-left" role="search" method="GET" action="products.php">
 								<div class="form-group">
-									<input type="text" class="u-full-width" placeholder="Buscar productos...">
+									<input type="text" class="u-full-width" placeholder="Buscar productos..." name="search-data">
 								</div>
-								<button type="submit" class="button">BUSCAR</button>
+								<button type="submit" name="search" class="button">BUSCAR</button>
 							</form>
+							<div class="navbar-form navbar-left">
+								<button type="button" name="categories-button" id="categories-button" class="button">Categorías</button>
+							</div>
 						<ul class="nav navbar-nav navbar-right">
 							<li class="dropdown">' . $dropdown_content . '</li>
 						</ul>
@@ -63,3 +69,32 @@
 	echo $header;
 
 ?>
+
+		<div class="container-fluid categories-panel" id="categories-panel">
+			<div class="col-xs-12 col-md-12">
+				<div class="row well">
+					<?php if (is_null($categories)){
+						echo "<p>No hay categorías para mostrar.</p>";
+					}else {
+						if(session_id() == '') {
+							session_start();
+						}
+						if (isset($_SESSION['category_id'])){
+							echo "<a href='products.php?idCategoriaProducto=0' class='category-link negrita' id='remove-filter-button'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span><span> Eliminar filtro</span></a>";
+						}
+						while ($row = mysqli_fetch_array($categories)){
+							if (isset($_SESSION['category_id']) && $_SESSION['category_id'] == $row['idCategoriaProducto']){
+					?>
+								<span>|</span><a href="products.php?idCategoriaProducto=<?php echo $row['idCategoriaProducto']; ?>" class="category-link negrita"><?php echo $row['nombre']; ?></a>
+					<?php
+							}else{
+					?>
+								<span>|</span><a href="products.php?idCategoriaProducto=<?php echo $row['idCategoriaProducto']; ?>" class="category-link"><?php echo $row['nombre']; ?></a>
+					<?php
+							}
+						}
+					}
+					?><span>|</span>
+				</div>
+			</div>
+		</div>

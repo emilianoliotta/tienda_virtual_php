@@ -1,5 +1,7 @@
 <?php
-	session_start();
+	if (session_id() == '') {
+		session_start();
+	}
 	include_once("connection.php");
 
 	$categoria = $_POST['category'];

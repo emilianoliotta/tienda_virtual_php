@@ -30,7 +30,9 @@
 		}
 
 		public static function logout($email){
-			session_start();
+			if (session_id() == '') {
+		    session_start();
+		  }
 			session_destroy();
 			session_start();
 			$_SESSION['message_success'] = "Sesión cerrada exitosamente.";

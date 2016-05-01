@@ -1,5 +1,23 @@
 $(document).ready(function(){
 
+	// CATEGORIES - Animacion para el panel de categorias
+	categories_panel = $("#categories-panel");
+	categories_panel.hide();
+	categories_button = $("#categories-button");
+	categories_button.on('click', function(){
+		categories_panel = $("#categories-panel");
+		categories_panel.slideToggle();
+	});
+
+	if($("#remove-filter-button").length){
+		categories_button.removeClass("button");
+		categories_button.addClass("btn-success");
+		categories_button.text("Categoria seleccionada");
+	}
+	if($("#remove-filter-button").length && $("table").length){
+				categories_panel.show();
+	}
+
 
 	// MESSAGES - Animación de las notificaciones
 	message = $("#message-wrapper");
@@ -17,7 +35,7 @@ $(document).ready(function(){
 	$("#change-pass-btn").on('click', function(){
 		button = $("#change-pass-btn");
 		button_text = button.text();
-		
+
 		if (button_text == "CANCELAR CAMBIO DE CONTRASEÑA")
 			button_text = "¿CAMBIAR CONTRASEÑA?";
 		else

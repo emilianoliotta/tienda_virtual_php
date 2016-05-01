@@ -1,5 +1,7 @@
 <?php
-	session_start();
+	if (session_id() == '') {
+		session_start();
+	}
 
 	if (isset($_SESSION['message_error'])){
 		echo "<div id='message-wrapper' class='message message-error'><span class='centrar-vertical blanca negrita'>" . $_SESSION['message_error'] . "</span></div>";
