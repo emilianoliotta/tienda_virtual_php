@@ -56,8 +56,12 @@
 							<hr>
 							<div class="centrar">
 								<p class="negrita">$<?php echo $data['precio']; ?></p>
-								<a href="user_login.php" class="button">INICIAR SESIÓN PARA COMPRAR</a>
-								<p></p>
+								<?php if (User::existsSession()){ ?>
+									<?php if (!Product::isCurrentUserTheOwner($data)){ ?>
+										<a href="#" class="button">COMPRAR</a> <!-- La opción COMPRAR se muestra si hay un usuario logueado y no es el dueño del producto -->
+									<?php } } else { ?>
+										<a href="user_login.php" class="button">INICIAR SESIÓN PARA COMPRAR</a>
+								<?php } ?>
 							</div>
 						</div>
 					</div>

@@ -47,8 +47,6 @@
 			return $data;
 		}
 
-
-
 		public static function getProducts(){
 
 			include_once("connection.php");
@@ -62,10 +60,7 @@
 				return $result;
 			}
 			return NULL;
-
 		}
-
-
 
 		public static function getCategory($id){
 			include_once("connection.php");
@@ -80,7 +75,12 @@
 				return $row['nombre'];
 			}
 			return NULL;
+		}
 
+		public static function isCurrentUserTheOwner($product){
+			include_once("user_class.php");
+			$current_user = User::current();
+			return ($product['idUsuario'] == $current_user['idUsuario']);
 		}
 
 	}
