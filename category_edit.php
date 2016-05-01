@@ -5,8 +5,33 @@
 
 		<?php
 			include_once("messages.php");
+
+			include_once("user_class.php");
+			if (session_id() == '') {
+				session_start();
+			}
+			if (User::existsSession()){
+				$user = User::current();
+				if ($user['email'] != "admin@admin"){
+					$_SESSION['message_error'] = "Acceso denegado. Sin permisos.";
+					header("Location: products.php");
+				}
+			}else {
+				$_SESSION['message_error'] = "Acceso denegado.";
+				header("Location: user_login.php");
+			}
+
 			include_once("header.php");
 		?>
+
+		<?php
+			include_once("connection.php");
+			$link = connect();
+			$query = "SELECT * FROM `categorias_productos` ORDER BY `nombre` ASC";
+
+			$result = mysqli_query($link, $query);
+			mysqli_close($link);
+		 ?>
 
 		<!-- CUERPO -->
 
@@ -23,9 +48,17 @@
 							<div class="container">
 								<form action="edit_category.php" method="POST">
 									<div class="form-group">
-										<input type="text" required class="u-full-width" placeholder="Categoría" name="category">
+										<select class="form-control" name="category_id" required>
+											<option value="">Selecciona categoría a editar</option>
+											<?php while ($row = mysqli_fetch_array($result)){ ?>
+										  	<option value="<?php echo $row['idCategoriaProducto']; ?>"><?php echo $row['nombre']; ?></option>
+										  <?php } ?>
+										</select>
 									</div>
-									<button type="submit" class="button">Actualizar</button>
+									<div class="form-group">
+										<input type="text" required class="u-full-width" placeholder="Categoría" name="category_name">
+									</div>
+									<button type="submit" class="button" name="update">Actualizar</button>
 								</form>
 							</div>
 						</div>

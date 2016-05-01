@@ -1,12 +1,30 @@
 <!DOCTYPE html>
 <html lang="es">
 	<?php include_once("head.php");	?>
+
 	<body>
 
 		<?php
 			include_once("messages.php");
+
+			include_once("user_class.php");
+			if (session_id() == '') {
+				session_start();
+			}
+			if (User::existsSession()){
+				$user = User::current();
+				if ($user['email'] != "admin@admin"){
+					$_SESSION['message_error'] = "Acceso denegado. Sin permisos.";
+					header("Location: products.php");
+				}
+			}else {
+				$_SESSION['message_error'] = "Acceso denegado.";
+				header("Location: user_login.php");
+			}
+
 			include_once("header.php");
 		?>
+
 
 		<!-- CUERPO -->
 
@@ -25,7 +43,7 @@
 									<div class="form-group">
 										<input type="text" required class="u-full-width" placeholder="Categoría" name="category" autofocus>
 									</div>
-									<button type="submit" class="button">Aceptar</button>
+									<button type="submit" class="button" name="submit">Aceptar</button>
 								</form>
 							</div>
 						</div>
