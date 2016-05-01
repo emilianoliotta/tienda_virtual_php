@@ -9,9 +9,7 @@
 	}
 ?>
 <html lang="es">
-	<?php
-		include_once("head.php");
-	?>
+	<?php include_once("head.php"); ?>
 	<body>
 
 		<?php
