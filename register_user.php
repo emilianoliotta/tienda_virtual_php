@@ -12,7 +12,12 @@
 				'apellido' => $_POST['apellido'],
 				'telefono' => $_POST['telefono']
 			);
-			User::register($data);
+			try {
+				User::register($data);
+			} catch (Exception $exception) {
+				header("Location:user_register.php");
+				$_SESSION['message_error'] = $exception->getMessage();
+			}
 		}
 	}
 	else {

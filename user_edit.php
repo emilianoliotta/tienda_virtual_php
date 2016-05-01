@@ -4,7 +4,7 @@
 	if (!User::existsSession()) {
 		header("Location:user_login.php");
 	}
- ?>
+?>
 
 <!DOCTYPE html>
 <html lang="es">
