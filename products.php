@@ -4,9 +4,17 @@
 	include_once("category_class.php");
 
 	if (isset($_GET['search'])){
-			$products = Product::getProductsForSearch($_GET['search-data'], $_GET['idCategoriaProducto']);
+			if (isset($_GET['idCategoriaProducto'])){
+				$products = Product::getProductsForSearch($_GET['search-data'], $_GET['idCategoriaProducto']);
+			}else{
+				$products = Product::getProductsForSearch($_GET['search-data'], NULL);
+			}
 	}else {
-		$products = Product::getProducts($_GET['idCategoriaProducto']);
+		if (isset($_GET['idCategoriaProducto'])){
+			$products = Product::getProducts($_GET['idCategoriaProducto']);
+		}else{
+			$products = Product::getProducts(NULL);
+		}
 	}
 ?>
 <html lang="es">
