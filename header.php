@@ -44,11 +44,11 @@
 							<li><a href="/about"><span class="hvr-wobble-vertical">ACERCA DE</span></a></li>
 							<li><a href="/contact"><span class="hvr-wobble-vertical">CONTACTO</span></a></li>
 						</ul>
-							<form class="navbar-form navbar-left" role="search">
+							<form class="navbar-form navbar-left" role="search" method="GET" action="products.php">
 								<div class="form-group">
-									<input type="text" class="u-full-width" placeholder="Buscar productos...">
+									<input type="text" class="u-full-width" placeholder="Buscar productos..." name="search-data">
 								</div>
-								<button type="submit" class="button">BUSCAR</button>
+								<button type="submit" name="search" class="button">BUSCAR</button>
 							</form>
 						<ul class="nav navbar-nav navbar-right">
 							<li class="dropdown">' . $dropdown_content . '</li>

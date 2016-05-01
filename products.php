@@ -1,8 +1,12 @@
 <!DOCTYPE html>
 <?php
 	include_once("product_class.php");
-	
-	$products = Product::getProducts();
+
+	if (isset($_GET['search'])){
+			$products = Product::getProductsForSearch($_GET['search-data']);
+	}else {
+		$products = Product::getProducts();
+	}
 ?>
 <html lang="es">
 	<?php

@@ -52,7 +52,22 @@
 			include_once("connection.php");
 
 			$link = connect();
-			$query = "SELECT nombre, precio, caducidad, idCategoriaProducto, idProducto FROM `productos`";
+			$query = "SELECT nombre, precio, caducidad, idCategoriaProducto, idProducto FROM `productos` WHERE `caducidad` >= CURDATE()";
+
+			$result = mysqli_query($link, $query);
+			mysqli_close($link);
+			if (mysqli_num_rows($result) > 0){
+				return $result;
+			}
+			return NULL;
+		}
+
+		public static function getProductsForSearch($search){
+
+			include_once("connection.php");
+
+			$link = connect();
+			$query = "SELECT nombre, precio, caducidad, idCategoriaProducto, idProducto FROM `productos` WHERE (`nombre` LIKE '%$search%' OR `descripcion` LIKE '%$search%') AND `caducidad` >= CURDATE()";
 
 			$result = mysqli_query($link, $query);
 			mysqli_close($link);

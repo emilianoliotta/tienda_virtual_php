@@ -53,6 +53,9 @@
         $_SESSION['message_error'] = "ERROR - Las contraseñas no coinciden";
         header("Location: user_edit.php");
       }
+      if (isset($link)){
+        mysqli_close($link);
+      }
     }
 	}
 ?>
