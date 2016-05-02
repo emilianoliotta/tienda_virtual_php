@@ -45,7 +45,7 @@
 					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 						<ul class="nav navbar-nav">
 							<li id="home"><a href="products.php"><span class="hvr-wobble-vertical">INICIO</span></a></li>
-							<li><a href="/about"><span class="hvr-wobble-vertical">ACERCA DE</span></a></li>
+							<li><a href="about.php"><span class="hvr-wobble-vertical">ACERCA DE</span></a></li>
 						</ul>
 							<form class="navbar-form navbar-left" role="search" method="GET" action="products.php">
 								<div class="form-group">
