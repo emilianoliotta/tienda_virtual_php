@@ -4,10 +4,13 @@
     session_start();
   }
 	if (User::existsSession()){
-		User::logout($_POST['email']);
-		header("Location:user_login.php");
+		if (User::logout($_POST['email'])){
+			header("Location:user_login.php");
+			$_SESSION['message_success'] = "Sesión cerrada exitosamente.";
+		}
 	}
 	else {
-		header("Location:products.php");
+		header("Location:user_login.php");
+		$_SESSION['message_error'] = "Necesita iniciar sesión.";
 	}
 ?>

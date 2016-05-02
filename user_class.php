@@ -5,16 +5,14 @@
 
 		/* Métodos de acceso, modificación y creación de usuarios */
 
+		// Método de inicio de sesión
 		public static function login($email, $clave){
 			include_once("connection.php");
-
 			$link = connect();
 			$email = mysqli_escape_string($link, $email);
 			$clave = mysqli_escape_string($link, $clave);
 			$query = "SELECT * FROM `usuarios` WHERE `email` = '$email' AND `clave` = '$clave'";
-
 			$result = mysqli_query($link, $query);
-
 			if (mysqli_num_rows($result) == 0){
 				throw new Exception("Datos incorrectos", 1);
 			}
@@ -22,22 +20,19 @@
 				$row = mysqli_fetch_array($result);
 				$email = $row['email'];
 				$_SESSION['email'] = $email;
-
-				header("Location:products.php");
-				$_SESSION['message_success'] = "Sesión iniciada exitosamente.";
+				return (User::current() != NULL);
 			}
-
 		}
 
+		// Método de cierre de sesión
 		public static function logout($email){
-			if (session_id() == '') {
-		    session_start();
-		  }
+			if (session_id() == ''){ session_start(); }
 			session_destroy();
 			session_start();
-			$_SESSION['message_success'] = "Sesión cerrada exitosamente.";
+			return (User::current() == NULL);
 		}
 
+		// Método de registro de usuario
 		public static function register($data){
 
 			$validation = User::validateData($data);
@@ -47,7 +42,6 @@
 
 			include_once("connection.php");
 			$link = connect();
-
 			$email = mysqli_escape_string($link, $data['email']);
 			$clave = mysqli_escape_string($link, $data['clave']);
 			$nombre = mysqli_escape_string($link, $data['nombre']);
@@ -68,6 +62,7 @@
 			}
 		}
 
+		// Método de modificación de cuenta de usuario
 		public static function update($data){
 
 			# Validación de contraseña
@@ -94,6 +89,7 @@
 			return $result;
 		}
 
+		// Método de modificación de contraseña de cuenta de usuario
 		public static function updatePassword($data){
 
 			# Verificación de contraseñas
@@ -116,12 +112,12 @@
 
 		/* Métodos de manejo de sesión */
 
-		// Devuelve TRUE si existe una sesión de usuario activa, FALSE en caso contrario
+		// Método que devuelve TRUE si existe una sesión de usuario activa, FALSE en caso contrario
 		public static function existsSession(){
 			return isset($_SESSION['email']);
 		}
 
-		// Devuelve los datos del usuario logueado, NULL en caso contrario
+		// Método que devuelve los datos del usuario logueado, NULL en caso contrario
 		public static function current(){
 			if (User::existsSession()){
 				include_once("connection.php");
@@ -139,7 +135,7 @@
 
 		/* Métodos de validación de datos */
 
-		// Valida datos de registro de usuario
+		// Método que valida datos de registro de usuario
 		private static function validateData($data){
 
 			# Validación de unicidad de email
@@ -170,7 +166,7 @@
 			return User::validateFormFields($data, true);
 		}
 
-		// Valida si se completaron los campos del formulario
+		// Método que valida si se completaron los campos del formulario
 		private static function validateFormFields($data, $with_email_validation){
 
 			# Verificación de existencia de datos
@@ -189,7 +185,7 @@
 			return User::NO_ERROR;
 		}
 
-		// Valida la contraseña del usuario
+		// Método que valida la contraseña del usuario
 		private static function validatePassword($password){
 			include_once("connection.php");
 			$link = connect();
@@ -202,7 +198,7 @@
 			return ((string)$result['clave'] == (string)$password);
 		}
 
-		// Validación de datos para cambio de contraseñas
+		// Método que valida los datos para cambio de contraseña
 		private static function validatePasswordChange($password, $new_password, $new_repeated_passwod){
 			if (!User::validatePassword($password)){
 				return "Contraseña incorrecta.";
