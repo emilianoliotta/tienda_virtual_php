@@ -7,30 +7,18 @@
 			include_once("messages.php");
 
 			include_once("user_class.php");
-			if (session_id() == '') {
-				session_start();
-			}
-			if (User::existsSession()){
-				$user = User::current();
-				if ($user['email'] != "admin@admin"){
-					$_SESSION['message_error'] = "Acceso denegado. Sin permisos.";
-					header("Location: products.php");
-				}
-			}else {
-				$_SESSION['message_error'] = "Acceso denegado.";
-				header("Location: user_login.php");
-			}
+			if (session_id() == ''){ session_start(); }
+      if (!User::hasAdminPrivileges()){
+        header("Location:products.php");
+        $_SESSION['message_error'] = "Acceso denegado.";
+      }
 
 			include_once("header.php");
 		?>
 
 		<?php
-			include_once("connection.php");
-			$link = connect();
-			$query = "SELECT * FROM `categorias_productos` ORDER BY `nombre` ASC";
-
-			$categories = mysqli_query($link, $query);
-			mysqli_close($link);
+			include_once("category_class.php");
+      $categories = Category::getCategories();
 		 ?>
 
 		<!-- CUERPO -->

@@ -5,6 +5,7 @@
   }
 	if (!User::existsSession()){
 		if (isset($_POST['register'])){
+			$success = false;
 			$data = array(
 				'email' => $_POST['email'],
 				'email_repetido' => $_POST['email_repetido'],
@@ -15,10 +16,14 @@
 				'telefono' => $_POST['telefono']
 			);
 			try {
-				User::register($data);
+				$success = User::register($data);
 			} catch (Exception $exception) {
 				header("Location:user_register.php");
 				$_SESSION['message_error'] = $exception->getMessage();
+			}
+			if ($success){
+				header("Location:products.php");
+				$_SESSION['message_success'] = "Sesión iniciada exitosamente.";
 			}
 		}
 	}

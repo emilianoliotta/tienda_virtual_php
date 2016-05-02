@@ -60,6 +60,8 @@
 					throw new Exception("Error al iniciar sesión.", 1);
 				}
 			}
+
+			return $result;
 		}
 
 		// Método de modificación de cuenta de usuario
@@ -131,6 +133,18 @@
 			else {
 				return NULL;
 			}
+		}
+
+		// Método que devuelve TRUE si el usuario tiene permisos de administrador
+		public static function hasAdminPrivileges(){
+			if (User::existsSession()){
+				include_once("connection.php");
+				$link = connect();
+				$adminUsersEmails = array(0 => "admin@admin", 1 => "admin2@admin");
+				$user = User::current();
+				return(in_array($user['email'], $adminUsersEmails));
+			}
+			return false;
 		}
 
 		/* Métodos de validación de datos */
