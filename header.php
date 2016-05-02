@@ -89,11 +89,11 @@
 						while ($row = mysqli_fetch_array($categories)){
 							if (isset($_SESSION['category_id']) && $_SESSION['category_id'] == $row['idCategoriaProducto']){
 					?>
-								<span>|</span><a href="products.php?idCategoriaProducto=<?php echo $row['idCategoriaProducto']; ?>" class="category-link negrita"><?php echo $row['nombre']; ?></a>
+								<a href="products.php?idCategoriaProducto=<?php echo $row['idCategoriaProducto']; ?>" class="category-link negrita"><?php echo $row['nombre']; ?></a>
 					<?php
 							}else{
 					?>
-								<span></span><a href="products.php?idCategoriaProducto=<?php echo $row['idCategoriaProducto']; ?>" class="category-link"><?php echo $row['nombre']; ?></a>
+								<a href="products.php?idCategoriaProducto=<?php echo $row['idCategoriaProducto']; ?>" class="category-link"><?php echo $row['nombre']; ?></a>
 					<?php
 							}
 						}
