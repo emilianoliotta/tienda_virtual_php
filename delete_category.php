@@ -9,25 +9,26 @@
 	if (isset($user) && $user['email'] == "admin@admin"){
 		include_once("connection.php");
 
-		$categoria = $_POST['category'];
-		if (isset($categoria) && isset($_POST['submit'])){
+		$category_id = $_POST['idCategoriaProducto'];
+		if (isset($category_id) && isset($_POST['delete'])){
 			$link = connect();
-			$query = "SELECT nombre FROM `categorias_productos` WHERE `nombre` = '$categoria'";
+			$query = "SELECT nombre FROM `categorias_productos` WHERE `idCategoriaProducto` = '$category_id'";
 			$result = mysqli_query($link, $query);
-			if (mysqli_num_rows($result) > 0){
-				$_SESSION['message_error'] = "La categoría ya existe";
+			if (!mysqli_num_rows($result) > 0){
+				$_SESSION['message_error'] = "La categoría no se encontró.";
 				header("Location: categories_management.php");
 			}else{
-				$query = "INSERT INTO `categorias_productos` (`idCategoriaProducto`, `nombre`) VALUES (NULL, '$categoria')";
+        $category = mysqli_fetch_array($result);
+				$query = "DELETE FROM `categorias_productos` WHERE `idCategoriaProducto` = '$category_id'";
 				$result = mysqli_query($link, $query);
 				mysqli_close($link);
 				if ($result){
-					$_SESSION['message_success'] = "Se agregó exitosamente la categoría '" . $categoria . "'.";
+					$_SESSION['message_success'] = "Se eliminó la categoría '" . $category['nombre'] . "'.";
 					header("Location: categories_management.php");
 				}
 			}
 		}else{
-			$_SESSION['message_error'] = "Debe completar un formulario para ingresar una categoría.";
+			$_SESSION['message_error'] = "Error - No se puede eliminar. Ingrese a 'categories_management.php'";
 			header("Location: categories_management.php");
 		}
 	}else {

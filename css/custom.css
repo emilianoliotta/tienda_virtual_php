@@ -47,6 +47,27 @@ body > footer{
   margin-bottom: -3em;
 }
 
+.category-row{
+  border-style: solid;
+  border-color: lightgrey;
+  border-width: 1px;
+  padding : 0.5em;
+  border-radius: 0.5em;
+}
+
+.edit-category-form{
+  padding-left: 4em;
+  padding-right: 4em;
+  margin-top: 3em;
+  margin-bottom: .5em;
+}
+
+#new-category-form{
+  padding-right: 3em;
+  padding-left: 3em;
+  
+}
+
 #remove-filter-button{
   display: block;
   color: #e72d2b;
@@ -91,6 +112,10 @@ body > footer{
 
 .hidden{
 	display:none;
+}
+
+.margin-bottom{
+  margin-bottom: 1em;
 }
 
 /* =================== FLASH ======================

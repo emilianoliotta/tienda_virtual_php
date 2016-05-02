@@ -1,5 +1,31 @@
 $(document).ready(function(){
 
+	//CATEGORIES MANAGEMENT - Animacion para los formularios de edición de categorias y de nueva categoria
+	edit_category_buttons = $(".edit-category-button");
+	$(".edit-category-form").hide();
+	edit_category_buttons.on('click', function(){
+		id = this.id;
+		form_id = "#form-";
+		form_id = form_id.concat(id);
+		$(form_id).fadeToggle('slow');
+	});
+
+	new_category_button = $("#new-category-button");
+	$("#new-category-form").hide();
+	new_category_button.on('click',function(){
+		$("#new-category-form").slideToggle(function(){
+				$("#new-category-input").focus();
+		});
+		button_text = $(this).text();
+		if (button_text == "Agregar categoría"){
+			button_text = "Cancelar";
+		}else {
+			button_text = "Agregar categoría";
+		}
+		$(this).text(button_text);
+	});
+
+
 	// CATEGORIES - Animacion para el panel de categorias
 	categories_panel = $("#categories-panel");
 	categories_panel.hide();
