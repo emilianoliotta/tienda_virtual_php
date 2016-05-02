@@ -17,7 +17,7 @@
 				<li><a href="user_logout.php">Cerrar sesión</a></li>
 			</ul>';
 			if(User::hasAdminPrivileges()){
-				$categories_link = '<li><a href="categories_management.php"><span class="hvr-wobble-vertical">CATEGORÍAS</span></a></li>';
+				$categories_link = '</span><a href="categories_management.php" class="btn btn-primary btn-xs"> Editar</a>';
 			}
 	}
 	else {
@@ -48,9 +48,8 @@
 					<!-- Colector de links de la barra de navegación -->
 					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 						<ul class="nav navbar-nav">
-							<li id="home"><a href="products.php"><span class="hvr-wobble-vertical">INICIO</span></a></li>'
-							. $categories_link .
-							'<li><a href="about.php"><span class="hvr-wobble-vertical">ACERCA DE</span></a></li>
+							<li id="home"><a href="products.php"><span class="hvr-wobble-vertical">INICIO</span></a></li>
+							<li><a href="about.php"><span class="hvr-wobble-vertical">ACERCA DE</span></a></li>
 						</ul>
 							<form class="navbar-form navbar-left" role="search" method="GET" action="products.php">
 								<div class="form-group">
@@ -94,12 +93,13 @@
 					<?php
 							}else{
 					?>
-								<span>|</span><a href="products.php?idCategoriaProducto=<?php echo $row['idCategoriaProducto']; ?>" class="category-link"><?php echo $row['nombre']; ?></a>
+								<span></span><a href="products.php?idCategoriaProducto=<?php echo $row['idCategoriaProducto']; ?>" class="category-link"><?php echo $row['nombre']; ?></a>
 					<?php
 							}
 						}
 					}
-					?><span>|</span>
+					?>
+					<?php echo $categories_link; ?>
 				</div>
 			</div>
 		</div>
