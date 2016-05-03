@@ -37,22 +37,22 @@ $(document).ready(function(){
 	});
 
 
-	// CATEGORIES - Animacion para el panel de categorias
-	categories_panel = $("#categories-panel");
-	categories_panel.hide();
-	categories_button = $("#categories-button");
-	categories_button.on('click', function(){
-		categories_panel = $("#categories-panel");
-		categories_panel.slideToggle();
+	// FILTROS - Animacion para el panel de filtros
+	filter_panel = $("#filter-panel");
+	filter_panel.hide();
+	filter_button = $("#filter-button");
+	filter_button.on('click', function(){
+		filter_panel = $("#filter-panel");
+		filter_panel.slideToggle();
 	});
 
 	if($("#remove-filter-button").length){
-		categories_button.removeClass("button");
-		categories_button.addClass("btn-success");
-		categories_button.text("Categoria seleccionada");
+		filter_button.removeClass("button");
+		filter_button.addClass("btn-success");
+		filter_button.text("Filtros aplicados");
 	}
 	if($("#remove-filter-button").length && $("table").length){
-				categories_panel.show();
+				filter_panel.show();
 	}
 
 

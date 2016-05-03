@@ -38,7 +38,15 @@
 		$product_dropdown_content = '';
 	}
 
-
+	if(isset($_GET['idCategoriaProducto'])){
+		$categoryID = $_GET['idCategoriaProducto'];
+		$categoryParameter = '<input type="text" value="' . $categoryID . '" class="u-full-width" name="idCategoriaProducto" hidden>';
+		$categoryParameterForSearch = '?idCategoriaProducto=' . $categoryID;
+	}
+	else {
+		$categoryParameter = '';
+		$categoryParameterForSearch = '';
+	}
 
 	$header =
 	'<!--HEADER -->
@@ -65,12 +73,12 @@
 						</ul>
 							<form class="navbar-form navbar-left" role="search" method="GET" action="products.php">
 								<div class="form-group">
-									<input type="text" class="u-full-width" placeholder="Buscar productos..." name="search-data">
-								</div>
+									<input type="text" class="u-full-width" placeholder="Buscar productos..." name="search-data">'. $categoryParameter .
+								'</div>
 								<button type="submit" name="search" class="button"><span class="glyphicon glyphicon-search negrita" aria-hidden="true"></span></button>
 							</form>
 							<div class="navbar-form navbar-left">
-								<button type="button" name="categories-button" id="categories-button" class="button">Categorías</button>
+								<button type="button" name="filter-button" id="filter-button" class="button">Filtrar productos</button>
 							</div>
 						<ul class="nav navbar-nav navbar-right">
 							<li class="dropdown">' . $dropdown_content . '</li>
@@ -84,26 +92,35 @@
 
 	echo $header;
 
+	if(isset($_GET['search'])){
+		$searchData = $_GET['search-data'];
+		$searchParameter = '?search-data=' . $searchData . '&search=';
+		$searchParameterForCategories = '&search-data=' . $searchData . '&search=';
+	}
+	else {
+		$searchParameter = '';
+		$searchParameterForCategories = '';
+	}
+
 ?>
 
-		<div class="container-fluid categories-panel" id="categories-panel">
+		<div class="container-fluid filter-panel" id="filter-panel">
 			<div class="col-xs-12 col-md-12">
 				<div class="row well">
 					<?php if (is_null($categories)){
 						echo "<p>No hay categorías para mostrar.</p>";
 					}else {
-						if(session_id() == '') { session_start(); }
 						if (isset($_GET['idCategoriaProducto'])){
-							echo "<a href='products.php' class='category-link negrita' id='remove-filter-button'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span><span> Eliminar filtro</span></a>";
+							echo "<a href='products.php" . $searchParameter . "' class='category-link negrita' id='remove-filter-button'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span><span> Eliminar filtrado de categorías</span></a>";
 						}
 						while ($row = mysqli_fetch_array($categories)){
 							if (isset($_GET['idCategoriaProducto']) && $_GET['idCategoriaProducto'] == $row['idCategoriaProducto']){
 					?>
-								<a href="products.php?idCategoriaProducto=<?php echo $row['idCategoriaProducto']; ?>" class="category-link negrita"><?php echo $row['nombre']; ?></a>
+								<a href="products.php?idCategoriaProducto=<?php echo $row['idCategoriaProducto'] . $searchParameterForCategories; ?>" class="category-link negrita"><?php echo $row['nombre']; ?></a>
 					<?php
 							}else{
 					?>
-								<a href="products.php?idCategoriaProducto=<?php echo $row['idCategoriaProducto']; ?>" class="category-link"><?php echo $row['nombre']; ?></a>
+								<a href="products.php?idCategoriaProducto=<?php echo $row['idCategoriaProducto'] . $searchParameterForCategories; ?>" class="category-link"><?php echo $row['nombre']; ?></a>
 					<?php
 							}
 						}
@@ -111,5 +128,11 @@
 					?>
 					<?php echo $categories_link; ?>
 				</div>
+				<?php if(isset($_GET['search'])){ ?>
+					<div class="row well">
+						<a href='products.php<?php echo $categoryParameterForSearch; ?>' class='category-link negrita' id='remove-filter-button'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span><span> Eliminar filtrado de búsqueda</span></a>
+						<div class="">Buscando <span class="italica destacado"><?php echo $searchData; ?></span></div>
+					</div>
+				<?php } ?>
 			</div>
 		</div>
