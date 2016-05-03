@@ -33,18 +33,18 @@
 							<h4 class="negrita">Editar<span class="destacado"> Cuenta</span></h4>
 							<hr>
 							<div class="container">
-								<form action="edit_user.php" method="POST">
+								<form action="edit_user.php" method="POST" id="user-edit-form">
 									<div class="form-group">
-										<input type="text" class="u-full-width" placeholder="Nombre" name="nombre" value=<?php echo '"' . $current_user['nombre'] . '"'; ?> required>
+										<input type="text" required class="u-full-width" placeholder="Nombre" name="nombre" value=<?php echo '"' . $current_user['nombre'] . '"'; ?> required>
 									</div>
 									<div class="form-group">
-										<input type="text" class="u-full-width" placeholder="Apellido" name="apellido" value=<?php echo '"' . $current_user['apellido'] . '"'; ?>required>
+										<input type="text" required class="u-full-width" placeholder="Apellido" name="apellido" value=<?php echo '"' . $current_user['apellido'] . '"'; ?>required>
 									</div>
 									<div class="form-group">
-										<input type="tel" class="u-full-width" placeholder="Teléfono" name="telefono" value=<?php echo '"' . $current_user['telefono'] . '"'; ?> required>
+										<input type="tel" required class="u-full-width" placeholder="Teléfono" name="telefono" value=<?php echo '"' . $current_user['telefono'] . '"'; ?> required>
 									</div>
 									<div class="form-group">
-										<input type="password" class="u-full-width" placeholder="Ingrese su contraseña para confirmar" name="clave" required>
+										<input type="password" required class="u-full-width" placeholder="Ingrese su contraseña para confirmar" name="clave" required>
 									</div>
 									<input type="hidden" name="idUsuario" value=<?php echo '"' . $current_user['idUsuario'] . '"'; ?>>
 									<p class="campo-obligatorio" style="display:block">Todos los campos son obligatorios</p>
@@ -58,10 +58,10 @@
 											<input type="password" required class="u-full-width" placeholder="Contraseña actual" name="clave_actual">
 										</div>
 										<div class="form-group">
-											<input type="password" required class="u-full-width" placeholder="Contraseña nueva" name="nueva_clave">
+											<input type="password" required class="u-full-width" placeholder="Contraseña nueva" name="nueva_clave" id="nueva_clave">
 										</div>
 										<div class="form-group">
-											<input type="password" required class="u-full-width" placeholder="Repetir contraseña nueva" name="nueva_clave_repetida">
+											<input type="password" required class="u-full-width" placeholder="Repetir contraseña nueva" name="nueva_clave_repetida" id="nueva_clave_repetida">
 										</div>
 										<button type="submit" class="button" name="change_password">ACEPTAR</button>
 									</form>
@@ -79,4 +79,36 @@
 		<?php include_once("footer.php"); ?>
 
 	</body>
+
+	<script type="text/javascript">
+
+		// USER EDIT - Botón de cambio de contraseña
+		$("#change-pass-form").hide();
+		$("#change-pass-btn").on('click', function(){
+			button = $("#change-pass-btn");
+			button_text = button.text();
+
+			if (button_text == "CANCELAR CAMBIO DE CONTRASEÑA")
+				button_text = "¿CAMBIAR CONTRASEÑA?";
+			else
+				button_text = "CANCELAR CAMBIO DE CONTRASEÑA";
+
+			//Cuando se hace click en el botón, se muestra o se oculta el formulario y se cambia el texto del mismo.
+			$("#change-pass-btn").text(button_text);
+			$("#change-pass-form").slideToggle();
+		});
+
+		// VALIDATIONS - Validaciones de los datos de los formularios
+		$("#user-edit-form").validate();
+
+		$("#change-pass-form").validate({
+			rules: {
+				nueva_clave_repetida: {
+					equalTo: nueva_clave
+				}
+			}
+		});
+
+	</script>
+
 </html>

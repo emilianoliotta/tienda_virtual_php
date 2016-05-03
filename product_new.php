@@ -33,7 +33,7 @@
 							<h4 class="negrita">Nuevo<span class="destacado"> Producto</span></h4>
 							<hr>
 							<div class="container">
-								<form method="POST" action="new_product.php" enctype="multipart/form-data">
+								<form method="POST" action="new_product.php" enctype="multipart/form-data" id="new-product-form">
 									<div class="form-group">
 										<input type="text" required class="u-full-width" placeholder="Nombre" name="name" autofocus>
 									</div>
@@ -49,7 +49,7 @@
 										<textarea type="text" required class="u-full-width" placeholder="Descripción..." autocomplete="off" name="description"></textarea>
 									</div>
 									<div class="form-group">
-										<input type="number" step="0.01" required class="u-full-width" placeholder="Precio" name="price">
+										<input type="number" required class="u-full-width" placeholder="Precio" name="price">
 									</div>
 									<div class="form-group">
 										<input type="date" required class="u-full-width" name="expiration">
@@ -72,4 +72,10 @@
 		<?php include_once("footer.php"); ?>
 
 	</body>
+
+	<script type="text/javascript">
+		// VALIDATIONS - Validaciones de los datos de los formularios
+		$("#new-product-form").validate();
+	</script>
+
 </html>

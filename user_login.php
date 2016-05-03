@@ -30,12 +30,12 @@
 							<h4 class="negrita">Iniciar<span class="destacado"> Sesión</span></h4>
 							<hr>
 							<div class="container">
-								<form method="POST" action="login_user.php">
+								<form method="POST" action="login_user.php" id="user-login-form">
 									<div class="form-group">
 										<input type="email" required class="u-full-width" placeholder="E-mail" name="email" autofocus>
 									</div>
 									<div class="form-group">
-										<input type="password" required class="u-full-width" placeholder="Contraseña" name="clave">
+										<input type="password" required class="u-full-width" placeholder="Contraseña" name="clave" minlength="8">
 									</div>
 									<button type="submit" class="button" name="login">INICIAR SESIÓN</button>
 								</form>
@@ -56,4 +56,9 @@
 		<?php include_once("footer.php"); ?>
 
 	</body>
+
+	<script type="text/javascript">
+		$("#user-login-form").validate();
+	</script>
+
 </html>

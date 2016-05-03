@@ -1,6 +1,7 @@
 $(document).ready(function(){
 
-	//PRODUCTS MANAGEMENT - Animacion para los formularios de edicion de productos
+
+	//PRODUCTS MANAGEMENT - Animacion para los formularios de edicion de productos y eliminacion de los mismos
 	edit_product_buttons = $(".edit-product-button");
 	$(".edit-product-form").hide();
 	edit_product_buttons.on('click', function(){
@@ -8,6 +9,14 @@ $(document).ready(function(){
 		form_id = "#form-";
 		form_id = form_id.concat(id);
 		$(form_id).slideToggle();
+	});
+
+	delete_product_buttons = $(".delete-product-button");
+	delete_product_buttons.on('click', function(){
+		id = this.id;
+		form_id = "#delete-product-form-"
+		form_id = form_id.concat(id);
+		$(form_id).submit();
 	});
 
 
@@ -65,24 +74,6 @@ $(document).ready(function(){
 	message.slideUp('slow', function(){
 		message.addClass('hidden');
 	});
-
-
-	// USER EDIT - Botón de cambio de contraseña
-	$("#change-pass-form").hide();
-	$("#change-pass-btn").on('click', function(){
-		button = $("#change-pass-btn");
-		button_text = button.text();
-
-		if (button_text == "CANCELAR CAMBIO DE CONTRASEÑA")
-			button_text = "¿CAMBIAR CONTRASEÑA?";
-		else
-			button_text = "CANCELAR CAMBIO DE CONTRASEÑA";
-
-		//Cuando se hace click en el botón, se muestra o se oculta el formulario y se cambia el texto del mismo.
-		$("#change-pass-btn").text(button_text);
-		$("#change-pass-form").slideToggle();
-	});
-
 
 
 });

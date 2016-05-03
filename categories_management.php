@@ -84,4 +84,14 @@
 		<?php include_once("footer.php"); ?>
 
 	</body>
+
+	<script type="text/javascript">
+		// VALIDATIONS - Validaciones de los datos de los formularios
+
+		$(".edit-category-form").validate();
+
+		$("#new-category-form").validate();
+
+	</script>
+
 </html>

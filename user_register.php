@@ -31,27 +31,27 @@
 							<h4 class="negrita">Crear<span class="destacado"> Cuenta</span></h4>
 							<hr>
 							<div class="container">
-								<form method="POST" action="register_user.php">
+								<form method="POST" action="register_user.php" id="user-registration-form">
 									<div class="form-group">
-										<input type="email" required class="u-full-width" placeholder="E-mail" name="email" autofocus>
+										<input type="email" required class="u-full-width" placeholder="E-mail" name="email" id="email" autofocus>
 									</div>
 									<div class="form-group">
-										<input type="email" required class="u-full-width" placeholder="Repetir E-mail" autocomplete="off" name="email_repetido">
+										<input type="email" required class="u-full-width" placeholder="Repetir E-mail" autocomplete="off" name="email_repetido" id="email_repetido">
 									</div>
 									<div class="form-group">
-										<input type="password" required class="u-full-width" placeholder="Contraseña" name="clave">
+										<input type="password" required class="u-full-width" placeholder="Contraseña" name="clave" id="clave" minlength="8">
 									</div>
 									<div class="form-group">
-										<input type="password" required class="u-full-width" placeholder="Repetir contraseña" name="clave_repetida">
+										<input type="password" required class="u-full-width" placeholder="Repetir contraseña" name="clave_repetida" id="clave_repetida" minlength="8">
 									</div>
 									<div class="form-group">
-										<input type="text" class="u-full-width" placeholder="Nombre" name="nombre">
+										<input type="text" class="u-full-width" placeholder="Nombre" name="nombre" required>
 									</div>
 									<div class="form-group">
-										<input type="text" class="u-full-width" placeholder="Apellido" name="apellido">
+										<input type="text" class="u-full-width" placeholder="Apellido" name="apellido" required>
 									</div>
 									<div class="form-group">
-										<input type="tel" class="u-full-width" placeholder="Teléfono" name="telefono">
+										<input type="tel" class="u-full-width" placeholder="Teléfono" name="telefono" minlength="6" required>
 									</div>
 									<button type="submit" class="button" name="register">REGISTRARSE</button>
 								</form>
@@ -68,4 +68,18 @@
 		<?php include_once("footer.php"); ?>
 
 	</body>
+
+	<script type="text/javascript">
+		$("#user-registration-form").validate({
+			rules: {
+				email_repetido: {
+					equalTo: email
+				},
+				clave_repetida: {
+					equalTo: clave
+				}
+			}
+		});
+	</script>
+
 </html>

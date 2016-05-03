@@ -17,6 +17,9 @@
 		<!-- fin hojas de estilo CSS-->
 		<!--Scripts JS-->
 		<script src="js/jquery-1.12.3.min.js"></script>
+		<script src="http://cdn.jsdelivr.net/jquery.validation/1.15.0/jquery.validate.min.js"></script>
+		<script src="http://cdn.jsdelivr.net/jquery.validation/1.15.0/additional-methods.min.js"></script>
+		<script src="js/messages_es.js"></script>
 		<script src="js/bootstrap.js"></script>
 		<script src="js/npm.js"></script>
 		<script src="js/custom.js"></script>

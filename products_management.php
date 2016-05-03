@@ -60,7 +60,7 @@
                           </div>
                         </div>
                         <a class="btn btn-primary btn-sm edit-product-button" id="'. $product['idProducto'] .'">Editar</a>
-                        <form method="post" action="delete_product.php" style="margin:0px; display:inline;" id="delete-form-'.$product['idProducto'].'"><input type="hidden" name="idProducto" value="'. $product['idProducto'] .'"></input><input type="hidden" name="delete" value="1"></input><a href="javascript:{}" onclick="document.getElementById(\'delete-form-'.$product['idProducto'].'\').submit(); return false;" class="btn btn-danger btn-sm">Eliminar</a></form>
+                        <form method="post" action="delete_product.php" style="margin:0px; display:inline;" id="delete-product-form-'.$product['idProducto'].'"><input type="hidden" name="idProducto" value="'. $product['idProducto'] .'"></input><input type="hidden" name="delete" value="1"></input><a class="btn btn-danger btn-sm delete-product-button" id="'.$product['idProducto'].'">Eliminar</a></form>
                         <form class="edit-product-form" id="form-'. $product['idProducto'] .'" action="edit_product.php" method="post" style="margin-top:1em;" enctype="multipart/form-data">
                           <div class="form-group">
                             <input type="text" required class="u-full-width" placeholder="Nombre" name="name" value="'.$product['nombre'].'">
@@ -93,7 +93,7 @@
                             <textarea type="text" required class="u-full-width" placeholder="Descripción..." autocomplete="off" name="description">'.$product['descripcion'].'</textarea>
                           </div>
                           <div class="form-group">
-                            <input type="number" step="0.01" required class="u-full-width" placeholder="Precio" name="price" value="'.$product['precio'].'">
+                            <input type="number" required class="u-full-width" placeholder="Precio" name="price" value="'.$product['precio'].'">
                           </div>
                           <div class="form-group">
                             <input type="date" required class="u-full-width" name="expiration" value="'.$product['caducidad'].'">
@@ -125,4 +125,10 @@
 		<?php include_once("footer.php"); ?>
 
 	</body>
+
+	<script type="text/javascript">
+		// VALIDATIONS - Validaciones de los datos de los formularios
+		$(".edit-product-form").validate();
+	</script>
+
 </html>
