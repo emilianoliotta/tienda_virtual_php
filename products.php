@@ -2,20 +2,23 @@
 <?php
 	include_once("product_class.php");
 	include_once("category_class.php");
+	include_once("products_pagination.php");
 
 	if (isset($_GET['search'])){
 			if (isset($_GET['idCategoriaProducto'])){
-				$products = Product::getProductsForSearch($_GET['search-data'], $_GET['idCategoriaProducto']);
-			}else{
-				$products = Product::getProductsForSearch($_GET['search-data'], NULL);
+				$results = paginate_products($_GET['currentPage'], $_GET['search-data'], $_GET['idCategoriaProducto']);
+			}else {
+				$results = paginate_products($_GET['currentPage'], $_GET['search-data'], NULL);
 			}
 	}else {
 		if (isset($_GET['idCategoriaProducto'])){
-			$products = Product::getProducts($_GET['idCategoriaProducto']);
-		}else{
-			$products = Product::getProducts(NULL);
+			$results = paginate_products($_GET['currentPage'], NULL, $_GET['idCategoriaProducto']);
+		}else {
+			$results = paginate_products($_GET['currentPage'], NULL, NULL);
 		}
 	}
+	$products = $results['products'];
+	$pagesAmount = $results['pagesAmount'];
 ?>
 <html lang="es">
 	<?php include_once("head.php"); ?>
@@ -62,6 +65,13 @@
 							}
 							?>
 						</table>
+						<hr>
+						<div class="text-center">
+							<?php
+								include_once("products_pagination_links.php");
+								generate_pagination_links($pagesAmount, $_GET['currentPage'], $_GET['search-data'], $_GET['idCategoriaProducto']);
+							?>
+						</div>
 						<?php }else{
 							echo "<span>No hay productos.</span>" ;
 						} ?>
