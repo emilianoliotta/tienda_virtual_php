@@ -3,10 +3,8 @@
 		session_start();
 	}
 	include_once("user_class.php");
-	if (User::existsSession()){
+	if (User::existsSession() && User::hasAdminPrivileges()){
 		$user = User::current();
-	}
-	if (isset($user) && $user['email'] == "admin@admin"){
 		include_once("connection.php");
 
 		$category_id = $_POST['idCategoriaProducto'];
@@ -24,6 +22,9 @@
 				mysqli_close($link);
 				if ($result){
 					$_SESSION['message_success'] = "Se eliminó la categoría '" . $category['nombre'] . "'.";
+					header("Location: categories_management.php");
+				}else {
+					$_SESSION['message_error'] = "Error - No se pudo eliminar.";
 					header("Location: categories_management.php");
 				}
 			}

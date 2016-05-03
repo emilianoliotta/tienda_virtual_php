@@ -8,7 +8,7 @@
 		include_once("connection.php");
 
 		$product_id = $_POST['idProducto'];
-		if (isset($product_id)){
+		if (isset($product_id) && isset($_POST['delete'])){
 			$link = connect();
 			$query = "SELECT nombre FROM `productos` WHERE `idProducto` = '$product_id' AND `idUsuario` = '$user[idUsuario]'";
 			$result = mysqli_query($link, $query);

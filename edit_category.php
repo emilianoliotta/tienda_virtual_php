@@ -3,12 +3,9 @@
 		session_start();
 	}
 	include_once("user_class.php");
-	if (User::existsSession()){
+	if (User::existsSession() && User::hasAdminPrivileges()){
 		$user = User::current();
-	}
-	if (isset($user) && $user['email'] == "admin@admin"){
     if (isset($_POST['update'])){
-
       include_once("connection.php");
 
       $category_name = $_POST['category_name'];
