@@ -65,7 +65,7 @@ body > footer{
 #new-category-form{
   padding-right: 3em;
   padding-left: 3em;
-  
+
 }
 
 #remove-filter-button{
@@ -180,6 +180,10 @@ body > footer{
 
 .blanca {
 	color: white;
+}
+
+.negra {
+	color: black;
 }
 
 .gris{
