@@ -1,5 +1,5 @@
 <?php
-	error_reporting(E_ALL ^ E_NOTICE);
+	error_reporting(E_ERROR);
 	ini_set('display_errors', 'on');
 	include_once("user_class.php");
 	include_once("category_class.php");
@@ -92,14 +92,12 @@
 					<?php if (is_null($categories)){
 						echo "<p>No hay categorías para mostrar.</p>";
 					}else {
-						if(session_id() == '') {
-							session_start();
-						}
-						if (isset($_SESSION['category_id'])){
-							echo "<a href='products.php?idCategoriaProducto=0' class='category-link negrita' id='remove-filter-button'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span><span> Eliminar filtro</span></a>";
+						if(session_id() == '') { session_start(); }
+						if (isset($_GET['idCategoriaProducto'])){
+							echo "<a href='products.php' class='category-link negrita' id='remove-filter-button'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span><span> Eliminar filtro</span></a>";
 						}
 						while ($row = mysqli_fetch_array($categories)){
-							if (isset($_SESSION['category_id']) && $_SESSION['category_id'] == $row['idCategoriaProducto']){
+							if (isset($_GET['idCategoriaProducto']) && $_GET['idCategoriaProducto'] == $row['idCategoriaProducto']){
 					?>
 								<a href="products.php?idCategoriaProducto=<?php echo $row['idCategoriaProducto']; ?>" class="category-link negrita"><?php echo $row['nombre']; ?></a>
 					<?php

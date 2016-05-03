@@ -49,49 +49,15 @@
 			return $data;
 		}
 
-		public static function getProducts($category_id, $offset = 0, $rowsAmount = PHP_INT_SIZE){
+		public static function getProducts($search = "", $category_id, $offset = 0, $rowsAmount = PHP_INT_SIZE){
 
 			include_once("connection.php");
 
 			$link = connect();
-			if(session_id() == '') { session_start(); }
-			if (isset($category_id) && $category_id == '0'){
-				unset($category_id);
-				unset($_SESSION['category_id']);
-			}
 			if (isset($category_id)){
-				$_SESSION['category_id'] = $category_id;
-				$query = "SELECT nombre, precio, caducidad, idCategoriaProducto, idProducto FROM `productos` WHERE `caducidad` >= CURDATE() AND `idCategoriaProducto` = '$category_id' LIMIT $offset, $rowsAmount";
-			}elseif(isset($_SESSION['category_id'])){
-				$query = "SELECT nombre, precio, caducidad, idCategoriaProducto, idProducto FROM `productos` WHERE `caducidad` >= CURDATE() AND `idCategoriaProducto` = '$_SESSION[category_id]' LIMIT $offset, $rowsAmount";
-			}else{
-				$query = "SELECT nombre, precio, caducidad, idCategoriaProducto, idProducto FROM `productos` WHERE `caducidad` >= CURDATE() LIMIT $offset, $rowsAmount";
-			}
-
-			$result = mysqli_query($link, $query);
-			mysqli_close($link);
-			if (mysqli_num_rows($result) > 0){
-				return $result;
-			}
-			return NULL;
-		}
-
-		public static function getProductsForSearch($search, $category_id, $offset = 0, $rowsAmount = PHP_INT_SIZE){
-
-			include_once("connection.php");
-
-			$link = connect();
-			if(session_id() == '') { session_start(); }
-			if (isset($category_id) && $category_id == '0'){
-				unset($category_id);
-				unset($_SESSION['category_id']);
-			}
-			if (isset($category_id)){
-				$_SESSION['category_id'] = $category_id;
 				$query = "SELECT nombre, precio, caducidad, idCategoriaProducto, idProducto FROM `productos` WHERE (`nombre` LIKE '%$search%' OR `descripcion` LIKE '%$search%') AND (`caducidad` >= CURDATE()) AND (`idCategoriaProducto` = '$category_id') LIMIT $offset, $rowsAmount";
-			}elseif(isset($_SESSION['category_id'])) {
-				$query = "SELECT nombre, precio, caducidad, idCategoriaProducto, idProducto FROM `productos` WHERE (`nombre` LIKE '%$search%' OR `descripcion` LIKE '%$search%') AND `caducidad` >= CURDATE() AND (`idCategoriaProducto` = '$_SESSION[category_id]') LIMIT $offset, $rowsAmount";
-			}else {
+			}
+			else {
 				$query = "SELECT nombre, precio, caducidad, idCategoriaProducto, idProducto FROM `productos` WHERE (`nombre` LIKE '%$search%' OR `descripcion` LIKE '%$search%') AND `caducidad` >= CURDATE() LIMIT $offset, $rowsAmount";
 			}
 
