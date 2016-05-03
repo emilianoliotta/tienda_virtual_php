@@ -13,7 +13,7 @@
     $searchParameter = ($search == NULL) ? "" : $search;
     $result = Product::getProducts($searchParameter, $categoryID, $offset, $rowsPerPage);
 
-    $rowsAmount = Product::getRowsAmount($searchParameter, $categoryParameter);
+    $rowsAmount = Product::getRowsAmount($searchParameter, $categoryID);
     $pagesAmount = ceil($rowsAmount / $rowsPerPage);
 
     $results = array('products' => $result, 'pagesAmount' => $pagesAmount);
