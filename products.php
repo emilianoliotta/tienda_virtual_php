@@ -61,7 +61,7 @@
 						<div class="text-center">
 							<?php
 								include_once("products_pagination_links.php");
-								generate_pagination_links($pagesAmount, $_GET['currentPage'], $_GET['search-data'], $_GET['idCategoriaProducto']);
+								generate_pagination_links($pagesAmount, $currentPage, $search, $categoryID);
 							?>
 						</div>
 						<?php }else{
