@@ -1,6 +1,8 @@
 <?php
 	class Product{
 
+		const ROWS_PER_PAGE = 3;
+
 		public static function getProductData($id){
 			include_once("connection.php");
 
@@ -47,25 +49,23 @@
 			return $data;
 		}
 
-		public static function getProducts($category_id){
+		public static function getProducts($category_id, $offset = 0, $rowsAmount = PHP_INT_SIZE){
 
 			include_once("connection.php");
 
 			$link = connect();
-			if(session_id() == '') {
-				session_start();
-			}
+			if(session_id() == '') { session_start(); }
 			if (isset($category_id) && $category_id == '0'){
 				unset($category_id);
 				unset($_SESSION['category_id']);
 			}
 			if (isset($category_id)){
 				$_SESSION['category_id'] = $category_id;
-				$query = "SELECT nombre, precio, caducidad, idCategoriaProducto, idProducto FROM `productos` WHERE `caducidad` >= CURDATE() AND `idCategoriaProducto` = '$category_id'";
+				$query = "SELECT nombre, precio, caducidad, idCategoriaProducto, idProducto FROM `productos` WHERE `caducidad` >= CURDATE() AND `idCategoriaProducto` = '$category_id' LIMIT $offset, $rowsAmount";
 			}elseif(isset($_SESSION['category_id'])){
-				$query = "SELECT nombre, precio, caducidad, idCategoriaProducto, idProducto FROM `productos` WHERE `caducidad` >= CURDATE() AND `idCategoriaProducto` = '$_SESSION[category_id]'";
+				$query = "SELECT nombre, precio, caducidad, idCategoriaProducto, idProducto FROM `productos` WHERE `caducidad` >= CURDATE() AND `idCategoriaProducto` = '$_SESSION[category_id]' LIMIT $offset, $rowsAmount";
 			}else{
-				$query = "SELECT nombre, precio, caducidad, idCategoriaProducto, idProducto FROM `productos` WHERE `caducidad` >= CURDATE()";
+				$query = "SELECT nombre, precio, caducidad, idCategoriaProducto, idProducto FROM `productos` WHERE `caducidad` >= CURDATE() LIMIT $offset, $rowsAmount";
 			}
 
 			$result = mysqli_query($link, $query);
@@ -76,25 +76,23 @@
 			return NULL;
 		}
 
-		public static function getProductsForSearch($search, $category_id){
+		public static function getProductsForSearch($search, $category_id, $offset = 0, $rowsAmount = PHP_INT_SIZE){
 
 			include_once("connection.php");
 
 			$link = connect();
-			if(session_id() == '') {
-				session_start();
-			}
+			if(session_id() == '') { session_start(); }
 			if (isset($category_id) && $category_id == '0'){
 				unset($category_id);
 				unset($_SESSION['category_id']);
 			}
 			if (isset($category_id)){
 				$_SESSION['category_id'] = $category_id;
-				$query = "SELECT nombre, precio, caducidad, idCategoriaProducto, idProducto FROM `productos` WHERE (`nombre` LIKE '%$search%' OR `descripcion` LIKE '%$search%') AND (`caducidad` >= CURDATE()) AND (`idCategoriaProducto` = '$category_id')";
+				$query = "SELECT nombre, precio, caducidad, idCategoriaProducto, idProducto FROM `productos` WHERE (`nombre` LIKE '%$search%' OR `descripcion` LIKE '%$search%') AND (`caducidad` >= CURDATE()) AND (`idCategoriaProducto` = '$category_id') LIMIT $offset, $rowsAmount";
 			}elseif(isset($_SESSION['category_id'])) {
-				$query = "SELECT nombre, precio, caducidad, idCategoriaProducto, idProducto FROM `productos` WHERE (`nombre` LIKE '%$search%' OR `descripcion` LIKE '%$search%') AND `caducidad` >= CURDATE() AND (`idCategoriaProducto` = '$_SESSION[category_id]')";
+				$query = "SELECT nombre, precio, caducidad, idCategoriaProducto, idProducto FROM `productos` WHERE (`nombre` LIKE '%$search%' OR `descripcion` LIKE '%$search%') AND `caducidad` >= CURDATE() AND (`idCategoriaProducto` = '$_SESSION[category_id]') LIMIT $offset, $rowsAmount";
 			}else {
-				$query = "SELECT nombre, precio, caducidad, idCategoriaProducto, idProducto FROM `productos` WHERE (`nombre` LIKE '%$search%' OR `descripcion` LIKE '%$search%') AND `caducidad` >= CURDATE()";
+				$query = "SELECT nombre, precio, caducidad, idCategoriaProducto, idProducto FROM `productos` WHERE (`nombre` LIKE '%$search%' OR `descripcion` LIKE '%$search%') AND `caducidad` >= CURDATE() LIMIT $offset, $rowsAmount";
 			}
 
 			$result = mysqli_query($link, $query);
@@ -103,6 +101,23 @@
 				return $result;
 			}
 			return NULL;
+		}
+
+		public static function getRowsAmount($search = "", $category_id = NULL){
+			include_once("connection.php");
+			$link = connect();
+			if(session_id() == '') { session_start(); }
+			if ($category_id != NULL){
+				$query = "SELECT COUNT(*) FROM `productos` WHERE (`nombre` LIKE '%$search%' OR `descripcion` LIKE '%$search%') AND `caducidad` >= CURDATE() AND `idCategoriaProducto` = '$category_id'";
+			}
+			else {
+				$query = "SELECT COUNT(*) FROM `productos` WHERE (`nombre` LIKE '%$search%' OR `descripcion` LIKE '%$search%') AND `caducidad` >= CURDATE()";
+			}
+			$result = mysqli_query($link, $query);
+			mysqli_close($link);
+
+			$row = mysqli_fetch_row($result);
+			return $row[0];
 		}
 
 		public static function isCurrentUserTheOwner($product){
