@@ -7,7 +7,6 @@
 		$user = User::current();
 
 		include_once("connection.php");
-
 		if (isset($_POST['submit'])){
       if (isset($_POST['name']) && isset($_POST['category_id']) && isset($_POST['description']) && isset($_POST['price']) && isset($_POST['expiration']) && isset($_FILES['image'])){
         $current_date = date('Y-m-d');
