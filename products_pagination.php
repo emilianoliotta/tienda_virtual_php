@@ -11,9 +11,7 @@
     $offset = ($currentPage - 1) * $rowsPerPage;
 
     $searchParameter = ($search == NULL) ? "" : $search;
-    #$categoryParameter = ($categoryID == '0') ? NULL : $categoryID;
-    $categoryParameter = $categoryID;
-    $result = Product::getProducts($searchParameter, $categoryParameter, $offset, $rowsPerPage);
+    $result = Product::getProducts($searchParameter, $categoryID, $offset, $rowsPerPage);
 
     $rowsAmount = Product::getRowsAmount($searchParameter, $categoryParameter);
     $pagesAmount = ceil($rowsAmount / $rowsPerPage);
