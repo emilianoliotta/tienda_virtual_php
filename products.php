@@ -4,19 +4,11 @@
 	include_once("category_class.php");
 	include_once("products_pagination.php");
 
-	if (isset($_GET['search'])){
-			if (isset($_GET['idCategoriaProducto'])){
-				$results = paginate_products($_GET['currentPage'], $_GET['search-data'], $_GET['idCategoriaProducto']);
-			}else {
-				$results = paginate_products($_GET['currentPage'], $_GET['search-data'], NULL);
-			}
-	}else {
-		if (isset($_GET['idCategoriaProducto'])){
-			$results = paginate_products($_GET['currentPage'], NULL, $_GET['idCategoriaProducto']);
-		}else {
-			$results = paginate_products($_GET['currentPage'], NULL, NULL);
-		}
-	}
+	$currentPage = (isset($_GET['currentPage'])) ? $_GET['currentPage'] : NULL;
+	$search = (isset($_GET['search'])) ? $_GET['search-data'] : NULL;
+	$categoryID = (isset($_GET['idCategoriaProducto'])) ? $_GET['idCategoriaProducto'] : NULL;
+
+	$results = paginate_products($currentPage, $search, $categoryID);
 	$products = $results['products'];
 	$pagesAmount = $results['pagesAmount'];
 ?>
