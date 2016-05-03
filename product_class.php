@@ -126,5 +126,20 @@
 			return ($product['idUsuario'] == $current_user['idUsuario']);
 		}
 
+		public static function getMyProducts($user_id){
+			include_once("connection.php");
+			$link = connect();
+			if (isset($user_id)){
+				$query = "SELECT nombre, precio, caducidad, descripcion, idCategoriaProducto, idProducto FROM `productos` WHERE `idUsuario` = '$user_id'";
+			}else{
+				return NULL;
+			}
+			$result = mysqli_query($link, $query);
+			mysqli_close($link);
+			if (mysqli_num_rows($result) > 0){
+				return $result;
+			}
+			return NULL;
+		}
 	}
 ?>

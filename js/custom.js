@@ -1,5 +1,16 @@
 $(document).ready(function(){
 
+	//PRODUCTS MANAGEMENT - Animacion para los formularios de edicion de productos
+	edit_product_buttons = $(".edit-product-button");
+	$(".edit-product-form").hide();
+	edit_product_buttons.on('click', function(){
+		id = this.id;
+		form_id = "#form-";
+		form_id = form_id.concat(id);
+		$(form_id).slideToggle();
+	});
+
+
 	//CATEGORIES MANAGEMENT - Animacion para los formularios de edición de categorias y de nueva categoria
 	edit_category_buttons = $(".edit-category-button");
 	$(".edit-category-form").hide();
