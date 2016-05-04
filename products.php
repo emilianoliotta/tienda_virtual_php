@@ -7,8 +7,10 @@
 	$currentPage = (isset($_GET['currentPage'])) ? $_GET['currentPage'] : NULL;
 	$search = (isset($_GET['search'])) ? $_GET['search-data'] : NULL;
 	$categoryID = (isset($_GET['idCategoriaProducto'])) ? $_GET['idCategoriaProducto'] : NULL;
+	$order_by = (isset($_GET['orderBy'])) ? $_GET['orderBy'] : "nombre";
+	$order = (isset($_GET['order'])) ? $_GET['order'] : "ASC";
 
-	$results = paginate_products($currentPage, $search, $categoryID);
+	$results = paginate_products($currentPage, $search, $categoryID, $order_by, $order);
 	$products = $results['products'];
 	$pagesAmount = $results['pagesAmount'];
 ?>
@@ -20,6 +22,7 @@
 			include_once("messages.php");
 			include_once("header.php");
 		?>
+
 
 		<!-- CUERPO -->
 
@@ -38,7 +41,7 @@
 								<th>Foto</th>
 								<th>Producto</th>
 								<th>Categoría</th>
-								<th>Caducidad</th>
+								<th><a href=<?php echo "products.php" . $categoryParameterForSearch . $searchParameter . "?orderBy=caducidad" . "&order=ASC"; ?> class="negra">Caducidad</a></th>
 								<th>Precio</th>
 							</tr>
 							<?php

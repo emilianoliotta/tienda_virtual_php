@@ -1,5 +1,5 @@
 <?php
-  function paginate_products($currentPage, $search = NULL, $categoryID = NULL){
+  function paginate_products($currentPage, $search = NULL, $categoryID = NULL, $order_by, $order){
     include_once("product_class.php");
 
     if (!(isset($currentPage) && is_numeric($currentPage))) {
@@ -11,7 +11,7 @@
     $offset = ($currentPage - 1) * $rowsPerPage;
 
     $searchParameter = ($search == NULL) ? "" : $search;
-    $result = Product::getProducts($searchParameter, $categoryID, $offset, $rowsPerPage);
+    $result = Product::getProducts($searchParameter, $categoryID, $order_by, $order, $offset, $rowsPerPage);
 
     $rowsAmount = Product::getRowsAmount($searchParameter, $categoryID);
     $pagesAmount = ceil($rowsAmount / $rowsPerPage);

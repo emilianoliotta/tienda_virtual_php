@@ -1,7 +1,7 @@
 <?php
 	class Product{
 
-		const ROWS_PER_PAGE = 3;
+		const ROWS_PER_PAGE = 6;
 
 		public static function getProductData($id){
 			include_once("connection.php");
@@ -49,16 +49,16 @@
 			return $data;
 		}
 
-		public static function getProducts($search = "", $category_id, $offset = 0, $rowsAmount = PHP_INT_SIZE){
+		public static function getProducts($search = "", $category_id, $order_by, $order, $offset = 0, $rowsAmount = PHP_INT_SIZE){
 
 			include_once("connection.php");
 
 			$link = connect();
 			if (isset($category_id)){
-				$query = "SELECT nombre, precio, caducidad, idCategoriaProducto, idProducto FROM `productos` WHERE (`nombre` LIKE '%$search%' OR `descripcion` LIKE '%$search%') AND (`caducidad` >= CURDATE()) AND (`idCategoriaProducto` = '$category_id') LIMIT $offset, $rowsAmount";
+				$query = "SELECT nombre, precio, caducidad, idCategoriaProducto, idProducto FROM `productos` WHERE (`nombre` LIKE '%$search%' OR `descripcion` LIKE '%$search%') AND (`caducidad` >= CURDATE()) AND (`idCategoriaProducto` = '$category_id') ORDER BY $order_by $order LIMIT $offset, $rowsAmount";
 			}
 			else {
-				$query = "SELECT nombre, precio, caducidad, idCategoriaProducto, idProducto FROM `productos` WHERE (`nombre` LIKE '%$search%' OR `descripcion` LIKE '%$search%') AND `caducidad` >= CURDATE() LIMIT $offset, $rowsAmount";
+				$query = "SELECT nombre, precio, caducidad, idCategoriaProducto, idProducto FROM `productos` WHERE (`nombre` LIKE '%$search%' OR `descripcion` LIKE '%$search%') AND `caducidad` >= CURDATE() ORDER BY $order_by $order LIMIT $offset, $rowsAmount";
 			}
 
 			$result = mysqli_query($link, $query);
