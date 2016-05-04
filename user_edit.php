@@ -1,9 +1,8 @@
 <?php
 	include_once("user_class.php");
-	if (session_id() == '') {
-    session_start();
-  }
+	if (session_id() == '') { session_start(); }
 	if (!User::existsSession()) {
+		$_SESSION['message_error'] = "Inicio de sesión requerido.";
 		header("Location:user_login.php");
 	}
 ?>

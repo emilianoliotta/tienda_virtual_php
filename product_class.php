@@ -2,6 +2,7 @@
 	class Product{
 
 		const ROWS_PER_PAGE = 3;
+		const NO_ERROR = "No existen errores.";
 
 		public static function getProductData($id){
 			include_once("connection.php");
@@ -86,6 +87,22 @@
 			return $row[0];
 		}
 
+		public static function create($data){
+			$validation = Product::validateFormFields($data);
+			if($validation != Product::NO_ERROR){
+				throw new Exception($validation, 1);
+			}
+
+			include_once("connection.php");
+			$link = connect();
+
+			$query = "INSERT INTO `productos` (`idProducto`, `idUsuario`, `idCategoriaProducto`, `nombre`, `descripcion`, `precio`, `publicacion`, `caducidad`, `contenidoimagen`, `tipoimagen`) VALUES (NULL, '$data[user_id]', '$data[category_id]', '$data[name]', '$data[description]', '$data[price]', CURDATE(), '$data[expiration]', '$data[image]', '$data[image_type]')";
+			$result = mysqli_query($link, $query);
+			mysqli_close($link);
+
+			return $result;
+		}
+
 		public static function isCurrentUserTheOwner($product){
 			include_once("user_class.php");
 			$current_user = User::current();
@@ -106,6 +123,25 @@
 				return $result;
 			}
 			return NULL;
+		}
+
+		private static function validateFormFields($data){
+
+			# Verificación de existencia de datos
+			$name = ($data['name'] != "");
+			$category_id = ($data['category_id'] != "");
+			$description = ($data['description'] != "");
+			$price = ($data['price'] != "");
+			$expiration = ($data['expiration'] != "");
+			$user_id = ($data['user_id'] != "");
+			#$image = ($data['image'] != "");
+			#$image_type = ($data['image_type'] != "");
+
+			$condition = $name && $category_id && $description && $price && $expiration && $user_id;
+			if (!$condition){
+				return "Todos los campos tienen que estar completos.";
+			}
+			return Product::NO_ERROR;
 		}
 	}
 ?>
