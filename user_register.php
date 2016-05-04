@@ -11,7 +11,7 @@
 <!DOCTYPE html>
 <html lang="es">
 	<?php include_once("head.php");	?>
-	<body>
+	<body id="js-user-registration">
 
 		<?php
 			include_once("messages.php");
@@ -68,18 +68,4 @@
 		<?php include_once("footer.php"); ?>
 
 	</body>
-
-	<script type="text/javascript">
-		$("#user-registration-form").validate({
-			rules: {
-				email_repetido: {
-					equalTo: email
-				},
-				clave_repetida: {
-					equalTo: clave
-				}
-			}
-		});
-	</script>
-
 </html>

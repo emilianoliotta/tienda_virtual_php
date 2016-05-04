@@ -18,7 +18,7 @@
 			</ul>';
 		$product_dropdown_content = '
 			<li class="dropdown">
-				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">PRODUCTOS <span class="glyphicon glyphicon-plus" aria-hidden="true" style="color:green"></span></a>
+				<a href="#" class="dropdown-toggle hvr-wobble-vertical" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">PRODUCTOS <span class="glyphicon glyphicon-plus" aria-hidden="true" style="color:green"></span></a>
 				<ul class="dropdown-menu">
 					<li><a href="product_new.php"><span style="color:green" class="negrita">Publicar producto <span class="glyphicon glyphicon-upload" aria-hidden="true"></span></span></a></li>
 					<li><a href="products_management.php"><span style="color:#337ab7" class="negrita">Administrar mis productos <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></span></a></li>
