@@ -11,7 +11,7 @@
 <!DOCTYPE html>
 <html lang="es">
 	<?php include_once("head.php");	?>
-	<body>
+	<body id="js-product-new">
 
 		<?php
 			include_once("messages.php");
@@ -72,10 +72,5 @@
 		<?php include_once("footer.php"); ?>
 
 	</body>
-
-	<script type="text/javascript">
-		// VALIDATIONS - Validaciones de los datos de los formularios
-		$("#new-product-form").validate();
-	</script>
 
 </html>

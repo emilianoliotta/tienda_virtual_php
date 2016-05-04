@@ -11,7 +11,7 @@
 <!DOCTYPE html>
 <html lang="es">
 	<?php include_once("head.php"); ?>
-	<body>
+	<body id="js-user-edit">
 
 		<?php
 			include_once("messages.php");
@@ -79,36 +79,4 @@
 		<?php include_once("footer.php"); ?>
 
 	</body>
-
-	<script type="text/javascript">
-
-		// USER EDIT - Botón de cambio de contraseña
-		$("#change-pass-form").hide();
-		$("#change-pass-btn").on('click', function(){
-			button = $("#change-pass-btn");
-			button_text = button.text();
-
-			if (button_text == "CANCELAR CAMBIO DE CONTRASEÑA")
-				button_text = "¿CAMBIAR CONTRASEÑA?";
-			else
-				button_text = "CANCELAR CAMBIO DE CONTRASEÑA";
-
-			//Cuando se hace click en el botón, se muestra o se oculta el formulario y se cambia el texto del mismo.
-			$("#change-pass-btn").text(button_text);
-			$("#change-pass-form").slideToggle();
-		});
-
-		// VALIDATIONS - Validaciones de los datos de los formularios
-		$("#user-edit-form").validate();
-
-		$("#change-pass-form").validate({
-			rules: {
-				nueva_clave_repetida: {
-					equalTo: nueva_clave
-				}
-			}
-		});
-
-	</script>
-
 </html>

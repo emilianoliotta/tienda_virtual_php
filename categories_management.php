@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 	<?php include_once("head.php");	?>
-	<body>
+	<body id="js-categories-management">
 
 		<?php
 			include_once("messages.php");
@@ -63,7 +63,7 @@
                       <form action="edit_category.php" method="POST" class="edit-category-form" id="form-'. $row['idCategoriaProducto'] .'">
       										<input type="hidden" name="category_id" value="'. $row['idCategoriaProducto'] .'" class="edit-category-input"></input>
       									<div class="form-group">
-      										<input type="text" required class="u-full-width" placeholder="Nuevo nombre" name="category_name">
+      										<input type="text" required class="u-full-width" placeholder="Nuevo nombre" name="category_name" value="'. $row['nombre'] .'">
       									</div>
       									<button type="submit" class="button" name="update">Actualizar</button>
       								</form>
@@ -84,14 +84,4 @@
 		<?php include_once("footer.php"); ?>
 
 	</body>
-
-	<script type="text/javascript">
-		// VALIDATIONS - Validaciones de los datos de los formularios
-
-		$(".edit-category-form").validate();
-
-		$("#new-category-form").validate();
-
-	</script>
-
 </html>

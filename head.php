@@ -23,6 +23,7 @@
 		<script src="js/bootstrap.js"></script>
 		<script src="js/npm.js"></script>
 		<script src="js/custom.js"></script>
+		<script src="js/validations.js"></script>
 		<!--fin scripts JS-->
 	</head>
 	'

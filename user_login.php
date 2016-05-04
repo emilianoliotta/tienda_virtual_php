@@ -11,7 +11,7 @@
 <!DOCTYPE html>
 <html lang="es">
 	<?php include_once("head.php");	?>
-	<body>
+	<body id="js-user-login">
 
 		<?php
 			include_once("messages.php");
@@ -56,9 +56,4 @@
 		<?php include_once("footer.php"); ?>
 
 	</body>
-
-	<script type="text/javascript">
-		$("#user-login-form").validate();
-	</script>
-
 </html>
