@@ -7,6 +7,39 @@
 	$categories = Category::getCategories();
 	$categories_link = '';
 
+	if(isset($_GET['idCategoriaProducto'])){
+		$categoryID = $_GET['idCategoriaProducto'];
+		$categoryParameter = '<input type="text" value="' . $categoryID . '" class="u-full-width" name="idCategoriaProducto" hidden>';
+		$categoryParameterForSearch = '?idCategoriaProducto=' . $categoryID;
+	}
+	else {
+		$categoryParameter = '';
+		$categoryParameterForSearch = '';
+	}
+
+	if(isset($_GET['search'])){
+		$searchData = $_GET['search-data'];
+		$searchParameter = '?search-data=' . $searchData . '&search=';
+		$searchParameterForCategories = '&search-data=' . $searchData . '&search=';
+	}
+	else {
+		$searchParameter = '';
+		$searchParameterForCategories = '';
+	}
+
+	if(isset($_GET['orderBy']) && isset($_GET['order'])){
+		$orderBy = $_GET['orderBy'];
+		$order = $_GET['order'];
+		$orderByParameter = '<input type="text" value="' . $orderBy . '" class="u-full-width" name="orderBy" hidden>';
+		$orderParameter = '<input type="text" value="' . $order . '" class="u-full-width" name="order" hidden>';
+		$orderByParameterForSearch = 'orderBy=' . $orderBy . "&order=" . $order;
+	}
+	else {
+		$orderByParameter = '';
+		$orderParameter = '';
+		$orderByParameterForSearch = '';
+	}
+
 	if (User::existsSession()){
 		$user_current = User::current();
 		$user_email = $user_current['email'];
@@ -38,15 +71,7 @@
 		$product_dropdown_content = '';
 	}
 
-	if(isset($_GET['idCategoriaProducto'])){
-		$categoryID = $_GET['idCategoriaProducto'];
-		$categoryParameter = '<input type="text" value="' . $categoryID . '" class="u-full-width" name="idCategoriaProducto" hidden>';
-		$categoryParameterForSearch = '?idCategoriaProducto=' . $categoryID;
-	}
-	else {
-		$categoryParameter = '';
-		$categoryParameterForSearch = '';
-	}
+
 
 	$header =
 	'<!--HEADER -->
@@ -73,7 +98,7 @@
 						</ul>
 							<form class="navbar-form navbar-left" role="search" method="GET" action="products.php">
 								<div class="form-group">
-									<input type="text" class="u-full-width" placeholder="Buscar productos..." name="search-data">'. $categoryParameter .
+									<input type="text" class="u-full-width" placeholder="Buscar productos..." name="search-data">'. $categoryParameter . $orderByParameter . $orderParameter .
 								'</div>
 								<button type="submit" name="search" class="button"><span class="glyphicon glyphicon-search negrita" aria-hidden="true"></span></button>
 							</form>
@@ -92,16 +117,6 @@
 
 	echo $header;
 
-	if(isset($_GET['search'])){
-		$searchData = $_GET['search-data'];
-		$searchParameter = '?search-data=' . $searchData . '&search=';
-		$searchParameterForCategories = '&search-data=' . $searchData . '&search=';
-	}
-	else {
-		$searchParameter = '';
-		$searchParameterForCategories = '';
-	}
-
 ?>
 
 		<div class="container-fluid filter-panel" id="filter-panel">
@@ -111,16 +126,20 @@
 						echo "<p>No hay categorías para mostrar.</p>";
 					}else {
 						if (isset($_GET['idCategoriaProducto'])){
-							echo "<a href='products.php" . $searchParameter . "' class='category-link negrita' id='remove-filter-button'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span><span> Eliminar filtrado de categorías</span></a>";
+							if ($searchParameter == ''){
+								echo "<a href='products.php?" . $orderByParameterForSearch . "' class='category-link negrita' id='remove-filter-button'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span><span> Eliminar filtrado de categorías</span></a>";
+							}else {
+								echo "<a href='products.php" . $searchParameter . "&" . $orderByParameterForSearch . "' class='category-link negrita' id='remove-filter-button'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span><span> Eliminar filtrado de categorías</span></a>";
+							}
 						}
 						while ($row = mysqli_fetch_array($categories)){
 							if (isset($_GET['idCategoriaProducto']) && $_GET['idCategoriaProducto'] == $row['idCategoriaProducto']){
 					?>
-								<a href="products.php?idCategoriaProducto=<?php echo $row['idCategoriaProducto'] . $searchParameterForCategories; ?>" class="category-link negrita"><?php echo $row['nombre']; ?></a>
+								<a href="products.php?idCategoriaProducto=<?php echo $row['idCategoriaProducto'] . $searchParameterForCategories . "&" . $orderByParameterForSearch; ?>" class="category-link negrita"><?php echo $row['nombre']; ?></a>
 					<?php
 							}else{
 					?>
-								<a href="products.php?idCategoriaProducto=<?php echo $row['idCategoriaProducto'] . $searchParameterForCategories; ?>" class="category-link"><?php echo $row['nombre']; ?></a>
+								<a href="products.php?idCategoriaProducto=<?php echo $row['idCategoriaProducto'] . $searchParameterForCategories . "&" . $orderByParameterForSearch; ?>" class="category-link"><?php echo $row['nombre']; ?></a>
 					<?php
 							}
 						}
@@ -130,7 +149,7 @@
 				</div>
 				<?php if(isset($_GET['search'])){ ?>
 					<div class="row well">
-						<a href='products.php<?php echo $categoryParameterForSearch; ?>' class='category-link negrita' id='remove-filter-button'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span><span> Eliminar filtrado de búsqueda</span></a>
+						<a href='products.php<?php if($categoryParameterForSearch == ''){echo "?" . $orderByParameterForSearch;}else{echo $categoryParameterForSearch . "&" . $orderByParameterForSearch;} ?>' class='category-link negrita' id='remove-filter-button'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span><span> Eliminar filtrado de búsqueda</span></a>
 						<div class="">Buscando <span class="italica destacado"><?php echo $searchData; ?></span></div>
 					</div>
 				<?php } ?>

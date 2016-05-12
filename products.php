@@ -41,8 +41,79 @@
 								<th>Foto</th>
 								<th>Producto</th>
 								<th>Categoría</th>
-								<th><a href=<?php echo "products.php" . $categoryParameterForSearch . $searchParameter . "?orderBy=caducidad" . "&order=ASC"; ?> class="negra">Caducidad</a></th>
-								<th>Precio</th>
+								<th><?php
+				 							if (isset($_GET['orderBy']) && $_GET['orderBy'] == "caducidad") {
+												if ($_GET['order'] == "ASC"){
+													if ($categoryParameterForSearch == '') {
+														if ($searchParameter == '') {
+															echo "<a href='products.php?orderBy=caducidad" . "&order=DESC'>Caducidad<span class='glyphicon glyphicon-triangle-bottom' aria-hidden='true'></span></a>";
+														}else {
+															echo "<a href='products.php" . $searchParameter . "&orderBy=caducidad" . "&order=DESC'>Caducidad<span class='glyphicon glyphicon-triangle-bottom' aria-hidden='true'></span></a>";
+														}
+													}else {
+														echo "<a href='products.php" . $categoryParameterForSearch . $searchParameterForCategories . "&orderBy=caducidad" . "&order=DESC'>Caducidad<span class='glyphicon glyphicon-triangle-bottom' aria-hidden='true'></span></a>";
+													}
+												}else {
+													if ($categoryParameterForSearch == '') {
+														if ($searchParameter == '') {
+															echo "<a href='products.php?orderBy=caducidad" . "&order=ASC'>Caducidad<span class='glyphicon glyphicon-triangle-top' aria-hidden='true'></span></a>";
+														}else {
+															echo "<a href='products.php" . $searchParameter . "&orderBy=caducidad" . "&order=ASC'>Caducidad<span class='glyphicon glyphicon-triangle-top' aria-hidden='true'></span></a>";
+														}
+													}else {
+														echo "<a href='products.php" . $categoryParameterForSearch . $searchParameterForCategories . "&orderBy=caducidad" . "&order=ASC'>Caducidad<span class='glyphicon glyphicon-triangle-top' aria-hidden='true'></span></a>";
+													}
+												}
+				 							}else {
+												if ($categoryParameterForSearch == '') {
+													if ($searchParameter == '') {
+														echo "<a href='products.php?orderBy=caducidad" . "&order=ASC' class='negra'>Caducidad<span class='glyphicon glyphicon-triangle-bottom' aria-hidden='true'></span></a>";
+													}else {
+														echo "<a href='products.php" . $searchParameter . "&orderBy=caducidad" . "&order=ASC' class='negra'>Caducidad<span class='glyphicon glyphicon-triangle-bottom' aria-hidden='true'></span></a>";
+													}
+												}else {
+													echo "<a href='products.php" . $categoryParameterForSearch . $searchParameterForCategories . "&orderBy=caducidad" . "&order=ASC' class='negra'>Caducidad<span class='glyphicon glyphicon-triangle-bottom' aria-hidden='true'></span></a>";
+												}
+				 							}
+										?>
+								</th>
+								<th>
+									<?php
+			 							if (isset($_GET['orderBy']) && $_GET['orderBy'] == "precio") {
+											if ($_GET['order'] == "ASC"){
+												if ($categoryParameterForSearch == '') {
+													if ($searchParameter == '') {
+														echo "<a href='products.php?orderBy=precio" . "&order=DESC'>Precio<span class='glyphicon glyphicon-triangle-bottom' aria-hidden='true'></span></a>";
+													}else {
+														echo "<a href='products.php" . $searchParameter . "&orderBy=precio" . "&order=DESC'>Precio<span class='glyphicon glyphicon-triangle-bottom' aria-hidden='true'></span></a>";
+													}
+												}else {
+													echo "<a href='products.php" . $categoryParameterForSearch . $searchParameterForCategories . "&orderBy=precio" . "&order=DESC'>Precio<span class='glyphicon glyphicon-triangle-bottom' aria-hidden='true'></span></a>";
+												}
+											}else {
+												if ($categoryParameterForSearch == '') {
+													if ($searchParameter == '') {
+														echo "<a href='products.php?orderBy=precio" . "&order=ASC'>Precio<span class='glyphicon glyphicon-triangle-top' aria-hidden='true'></span></a>";
+													}else {
+														echo "<a href='products.php" . $searchParameter . "&orderBy=precio" . "&order=ASC'>Precio<span class='glyphicon glyphicon-triangle-top' aria-hidden='true'></span></a>";
+													}
+												}else {
+													echo "<a href='products.php" . $categoryParameterForSearch . $searchParameterForCategories . "&orderBy=precio" . "&order=ASC'>Precio<span class='glyphicon glyphicon-triangle-top' aria-hidden='true'></span></a>";
+												}
+											}
+										}else {
+											if ($categoryParameterForSearch == '') {
+												if ($searchParameter == '') {
+													echo "<a href='products.php?orderBy=precio" . "&order=ASC' class='negra'>Precio<span class='glyphicon glyphicon-triangle-bottom' aria-hidden='true'></span></a>";
+												}else {
+													echo "<a href='products.php" . $searchParameter . "&orderBy=precio" . "&order=ASC' class='negra'>Precio<span class='glyphicon glyphicon-triangle-bottom' aria-hidden='true'></span></a>";
+												}
+											}else {
+												echo "<a href='products.php" . $categoryParameterForSearch . $searchParameterForCategories . "&orderBy=precio" . "&order=ASC' class='negra'>Precio<span class='glyphicon glyphicon-triangle-bottom' aria-hidden='true'></span></a>";
+											}
+										}
+									?>
+								</th>
 							</tr>
 							<?php
 								while ($row = mysqli_fetch_array ($products)) {
@@ -53,7 +124,7 @@
 								</td>
 								<td><a href="product.php?idProducto=<?php echo $row['idProducto']; ?>"><?php echo $row['nombre'];?></a></td>
 								<td style="width: 300px;"><?php echo Category::getCategory($row['idCategoriaProducto']); ?></td>
-								<td style="width: 100px;"><?php echo date("d/m/y", strtotime($row['caducidad'])); ?></td>
+								<td style="width: 120px;"><?php echo date("d/m/y", strtotime($row['caducidad'])); ?></td>
 								<td style="width: 120px;">$<?php echo $row['precio']; ?></td>
 							</tr>
 							<?php
@@ -64,7 +135,7 @@
 						<div class="text-center">
 							<?php
 								include_once("products_pagination_links.php");
-								generate_pagination_links($pagesAmount, $currentPage, $search, $categoryID);
+								generate_pagination_links($pagesAmount, $currentPage, $search, $categoryID, $order_by, $order);
 							?>
 						</div>
 						<?php }else{

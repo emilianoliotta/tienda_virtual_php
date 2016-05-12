@@ -81,9 +81,7 @@ $(document).ready(function(){
 		filter_button.removeClass("button");
 		filter_button.addClass("btn-success");
 		filter_button.text("Filtros aplicados");
-	}
-	if($("#remove-filter-button").length && $("table").length){
-				filter_panel.show();
+		filter_panel.show();
 	}
 
 

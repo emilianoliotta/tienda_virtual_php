@@ -29,8 +29,8 @@
 						<div class="panel centrar">
 							<br>
 							<div class="container">
-								<div class="row centrar">
-									<img src="showimage.php?idProducto=<?php echo $data['idProducto'];?>" class="img-responsive img-rounded" alt="Imagen de producto">
+								<div class="row centrar center-block">
+									<img src="showimage.php?idProducto=<?php echo $data['idProducto'];?>" class="img-responsive img-rounded center-block" alt="Imagen de producto">
 								</div>
 								<hr>
 								<div><span class="negrita">Categoría: </span><?php echo $data['categoria']; ?></div>
