@@ -47,6 +47,8 @@
                   </div>
                 </div>
               </div>
+              <h5 class="destacado">Enlace al repositorio</h5>
+              <a href="https://github.com/emilianoliotta/tienda_virtual_php" target="_blank" class="btn btn-success negrita">GitHub</a>
               <hr>
               <a href="products.php" class="button">VOLVER A NAVEGACIÓN</a>
             </div>
