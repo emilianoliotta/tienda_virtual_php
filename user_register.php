@@ -4,7 +4,9 @@
     session_start();
   }
 	if (User::existsSession()) {
+    $_SESSION['message_error'] = "Sesión ya iniciada.";
 		header("Location:user_edit.php");
+    return;
 	}
  ?>
 

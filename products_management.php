@@ -7,12 +7,15 @@
 			include_once("messages.php");
 			include_once("user_class.php");
 			if (session_id() == ''){ session_start(); }
-      if (User::existsSession()){
-        $user = User::current();
-      }else {
-        header("Location: user_login.php");
-        $_SESSION['message_error'] = "Debe iniciar sesión.";
-      }
+
+      try {
+    		User::validateSession();
+    	} catch (Exception $exception) {
+    		$_SESSION['message_error'] = $exception->getMessage();
+    		header("Location:user_login.php");
+    		return;
+    	}
+      $user = User::current();
 
 			include_once("header.php");
 		?>

@@ -3,14 +3,15 @@
 	if (session_id() == '') {
     session_start();
   }
-	if (User::existsSession()){
-		if (User::logout($_POST['email'])){
-			header("Location:user_login.php");
-			$_SESSION['message_success'] = "Sesión cerrada exitosamente.";
-		}
-	}
-	else {
+	try {
+		User::validateSession();
+	} catch (Exception $exception) {
+		$_SESSION['message_error'] = $exception->getMessage();
 		header("Location:user_login.php");
-		$_SESSION['message_error'] = "Necesita iniciar sesión.";
+		return;
+	}
+	if (User::logout($_POST['email'])){
+		header("Location:user_login.php");
+		$_SESSION['message_success'] = "Sesión cerrada exitosamente.";
 	}
 ?>

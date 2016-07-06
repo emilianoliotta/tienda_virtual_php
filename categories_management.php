@@ -8,10 +8,24 @@
 
 			include_once("user_class.php");
 			if (session_id() == ''){ session_start(); }
-      if (!User::hasAdminPrivileges()){
-        header("Location:products.php");
-        $_SESSION['message_error'] = "Acceso denegado.";
-      }
+			
+			// Validar sesión iniciada
+			try {
+				User::validateSession();
+			} catch (Exception $exception) {
+				$_SESSION['message_error'] = $exception->getMessage();
+				header("Location:user_login.php");
+				return;
+			}
+
+			// Validar privilegios de administrador
+			try {
+				User::validateAdminPrivileges();
+			} catch (Exception $exception) {
+				$_SESSION['message_error'] = $exception->getMessage();
+				header("Location:products.php");
+				return;
+			}
 
 			include_once("header.php");
 		?>

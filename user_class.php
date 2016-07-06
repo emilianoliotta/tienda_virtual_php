@@ -119,6 +119,12 @@
 			return isset($_SESSION['email']);
 		}
 
+		public static function validateSession(){
+			if(!User::existsSession()){
+				throw new Exception("Inicio de sesión requerido.", 1);
+			}
+		}
+
 		// Método que devuelve los datos del usuario logueado, NULL en caso contrario
 		public static function current(){
 			if (User::existsSession()){
@@ -145,6 +151,12 @@
 				return(in_array($user['email'], $adminUsersEmails));
 			}
 			return false;
+		}
+
+		public static function validateAdminPrivileges(){
+			if(!User::hasAdminPrivileges()){
+				throw new Exception("Acceso denegado.", 1);
+			}
 		}
 
 		/* Métodos de validación de datos */

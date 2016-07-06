@@ -1,9 +1,13 @@
 <?php
 	include_once("user_class.php");
 	if (session_id() == '') { session_start(); }
-	if (!User::existsSession()) {
-		$_SESSION['message_error'] = "Inicio de sesión requerido.";
+
+	try {
+		User::validateSession();
+	} catch (Exception $exception) {
+		$_SESSION['message_error'] = $exception->getMessage();
 		header("Location:user_login.php");
+		return;
 	}
 ?>
 
@@ -34,14 +38,18 @@
 							<div class="container">
 								<form action="edit_user.php" method="POST" id="user-edit-form">
 									<div class="form-group">
-										<input type="text" required class="u-full-width" placeholder="Nombre" name="nombre" value=<?php echo '"' . $current_user['nombre'] . '"'; ?> required>
+										<label for="nombre">Nombre</label>
+										<input type="text" required class="u-full-width" placeholder="Nombre" name="nombre" id ="nombre" value=<?php echo '"' . $current_user['nombre'] . '"'; ?> required>
 									</div>
 									<div class="form-group">
-										<input type="text" required class="u-full-width" placeholder="Apellido" name="apellido" value=<?php echo '"' . $current_user['apellido'] . '"'; ?>required>
+										<label for="apellido">Apellido</label>
+										<input type="text" required class="u-full-width" placeholder="Apellido" name="apellido" id="apellido" value=<?php echo '"' . $current_user['apellido'] . '"'; ?>required>
 									</div>
 									<div class="form-group">
-										<input type="tel" required class="u-full-width" placeholder="Teléfono" name="telefono" value=<?php echo '"' . $current_user['telefono'] . '"'; ?> required>
+										<label for="telefono">Teléfono</label>
+										<input type="tel" required class="u-full-width" placeholder="Teléfono" name="telefono" id="telefono" value=<?php echo '"' . $current_user['telefono'] . '"'; ?> required>
 									</div>
+									<br>
 									<div class="form-group">
 										<input type="password" required class="u-full-width" placeholder="Ingrese su contraseña para confirmar" name="clave" required>
 									</div>
