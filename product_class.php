@@ -125,6 +125,54 @@
 			return NULL;
 		}
 
+    // Método de modificación de producto
+		public static function update($data){
+      include_once("user_class.php");
+			# Validación de sesión
+			if (!User::existsSession()){
+				throw new Exception("Debe estar logueado para modificar un producto.", 1);
+			}
+      $user = User::current();
+      $data['user_id'] = $user[idUsuario];
+			# Validación de datos
+			$validation = Product::validateFormFields($data);
+			if ($validation != Product::NO_ERROR){
+				throw new Exception($validation, 1);
+			}
+
+			include_once("connection.php");
+			$link = connect();
+			$name = mysqli_escape_string($link, $data['name']);
+			$category_id = mysqli_escape_string($link, $data['category_id']);
+			$description = mysqli_escape_string($link, $data['description']);
+      $price = mysqli_escape_string($link, $data['price']);
+      $expiration = mysqli_escape_string($link, $data['expiration']);
+
+      $query = "SELECT nombre FROM `productos` WHERE `idProducto` = '$data[product_id]' AND `idUsuario` = '$user[idUsuario]'";
+      $result = mysqli_query($link, $query);
+      if (mysqli_num_rows($result) > 0){
+        if (isset($_FILES['image']) && $_FILES['image']['size']){
+          $image = addslashes(file_get_contents($_FILES['image']['tmp_name'])); //SQL Injection defence!
+          $image_type = addslashes($_FILES['image']['type']);
+          $query = "UPDATE `productos` SET `idCategoriaProducto` = '$data[category_id]', `nombre` = '$data[name]', `descripcion` = '$data[description]', `precio` = '$data[price]', `caducidad` = '$data[expiration]', `contenidoimagen` = '$image', `tipoimagen` = '$image_type' WHERE `idProducto` = '$data[product_id]'";
+        }else {
+          $query = "UPDATE `productos` SET `idCategoriaProducto` = '$data[category_id]', `nombre` = '$data[name]', `descripcion` = '$data[description]', `precio` = '$data[price]', `caducidad` = '$data[expiration]' WHERE `idProducto` = '$data[product_id]'";
+        }
+        $result = mysqli_query($link, $query);
+        mysqli_close($link);
+        if ($result){
+          return Product::NO_ERROR;
+        }else{
+          throw new Exception("Error, no se pudo actualizar el producto.", 1);
+        }
+      }else {
+        mysqli_close($link);
+        throw new Exception("Error, no se pudo actualizar el producto.", 1);
+      }
+
+			return $result;
+		}
+
 		private static function validateFormFields($data){
 
 			# Verificación de existencia de datos

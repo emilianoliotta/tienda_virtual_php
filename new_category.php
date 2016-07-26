@@ -16,7 +16,7 @@
 				$_SESSION['message_error'] = "La categoría ya existe";
 				header("Location: categories_management.php");
 			}else{
-				if($category_name == ""){
+				if($categoria == ""){
 					$_SESSION['message_error'] = "Ningún nombre de categoría ingresado.";
 					header("Location: categories_management.php");
 				}
