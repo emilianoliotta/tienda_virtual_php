@@ -3,7 +3,7 @@
 		session_start();
 	}
 	include_once("user_class.php");
-	if (User::existsSession() && User::hasAdminPrivileges()){
+	if (User::existsSession()){
 		$user = User::current();
     if (isset($_POST['update'])){
       include_once("connection.php");
@@ -18,16 +18,22 @@
   				$_SESSION['message_error'] = "La categoría ya existe.";
   				header("Location: categories_management.php");
   			}else{
-          $query = "UPDATE  `categorias_productos` SET  `nombre` = '$category_name' WHERE  `idCategoriaProducto` =  '$category_id'";
-    			$result = mysqli_query($link, $query);
-          mysqli_close($link);
-    			if ($result){
-  					$_SESSION['message_success'] = "Se actualizó exitosamente la categoría a '" . $category_name . "'";
-  					header("Location: categories_management.php");
-    			}else{
-            $_SESSION['message_error'] = "No se pudo actualizar la categoría.";
-  					header("Location: categories_management.php");
-          }
+					if($category_name == ""){
+						$_SESSION['message_error'] = "Ningún nombre de categoría ingresado.";
+						header("Location: categories_management.php");
+					}
+					else{
+						$query = "UPDATE  `categorias_productos` SET  `nombre` = '$category_name' WHERE  `idCategoriaProducto` =  '$category_id'";
+						$result = mysqli_query($link, $query);
+						mysqli_close($link);
+						if ($result){
+							$_SESSION['message_success'] = "Se actualizó exitosamente la categoría a '" . $category_name . "'";
+							header("Location: categories_management.php");
+						}else{
+							$_SESSION['message_error'] = "No se pudo actualizar la categoría.";
+							header("Location: categories_management.php");
+						}
+					}
         }
   		}else{
   			$_SESSION['message_error'] = "Debe completar los campos formulario para editar una categoría.";

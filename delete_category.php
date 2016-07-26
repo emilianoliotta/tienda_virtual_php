@@ -3,7 +3,7 @@
 		session_start();
 	}
 	include_once("user_class.php");
-	if (User::existsSession() && User::hasAdminPrivileges()){
+	if (User::existsSession()){
 		$user = User::current();
 		include_once("connection.php");
 

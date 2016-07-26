@@ -71,8 +71,8 @@
 			if (!User::validatePassword($data['clave'])){
 				throw new Exception("Contraseña incorrecta.", 1);
 			}
-			# Verificación de campos completos
-			$validation = User::validateFormFields($data, false);
+			# Validación de datos
+			$validation = User::validateUpdateFormFields($data);
 			if ($validation != User::NO_ERROR){
 				throw new Exception($validation, 1);
 			}
@@ -141,24 +141,6 @@
 			}
 		}
 
-		// Método que devuelve TRUE si el usuario tiene permisos de administrador
-		public static function hasAdminPrivileges(){
-			if (User::existsSession()){
-				include_once("connection.php");
-				$link = connect();
-				$adminUsersEmails = array(0 => "admin@admin", 1 => "admin2@admin");
-				$user = User::current();
-				return(in_array($user['email'], $adminUsersEmails));
-			}
-			return false;
-		}
-
-		public static function validateAdminPrivileges(){
-			if(!User::hasAdminPrivileges()){
-				throw new Exception("Acceso denegado.", 1);
-			}
-		}
-
 		/* Métodos de validación de datos */
 
 		// Método que valida datos de registro de usuario
@@ -176,6 +158,11 @@
 			}
 			mysqli_close($link);
 
+			# Validación de formato de email
+			$email_pattern = "^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$";
+			if(eregi($email_pattern, $data['email'])){
+				return "Formato de email inválido.";
+			}
 			# Verificación de emails
 			if ($data['email'] != $data['email_repetido']){
 				return "Los emails ingresados no coinciden.";
@@ -205,6 +192,20 @@
 			if ($with_email_validation){
 				$condition = $condition && $email;
 			}
+			if (!$condition){
+				return "Todos los campos tienen que estar completos.";
+			}
+			return User::NO_ERROR;
+		}
+
+		// Método que valida si se completaron los campos del formulario
+		private static function validateUpdateFormFields($data){
+
+			# Verificación de existencia de datos
+			$nombre = ($data['nombre'] != "");
+			$apellido = ($data['apellido'] != "");
+			$telefono = ($data['telefono'] != "");
+			$condition = $nombre && $apellido && $telefono;
 			if (!$condition){
 				return "Todos los campos tienen que estar completos.";
 			}

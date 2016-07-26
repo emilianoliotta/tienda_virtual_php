@@ -3,7 +3,7 @@
 		session_start();
 	}
 	include_once("user_class.php");
-	if (User::existsSession() && User::hasAdminPrivileges()){
+	if (User::existsSession()){
 		$user = User::current();
 		include_once("connection.php");
 
@@ -16,12 +16,18 @@
 				$_SESSION['message_error'] = "La categoría ya existe";
 				header("Location: categories_management.php");
 			}else{
-				$query = "INSERT INTO `categorias_productos` (`idCategoriaProducto`, `nombre`) VALUES (NULL, '$categoria')";
-				$result = mysqli_query($link, $query);
-				mysqli_close($link);
-				if ($result){
-					$_SESSION['message_success'] = "Se agregó exitosamente la categoría '" . $categoria . "'.";
+				if($category_name == ""){
+					$_SESSION['message_error'] = "Ningún nombre de categoría ingresado.";
 					header("Location: categories_management.php");
+				}
+				else{
+					$query = "INSERT INTO `categorias_productos` (`idCategoriaProducto`, `nombre`) VALUES (NULL, '$categoria')";
+					$result = mysqli_query($link, $query);
+					mysqli_close($link);
+					if ($result){
+						$_SESSION['message_success'] = "Se agregó exitosamente la categoría '" . $categoria . "'.";
+						header("Location: categories_management.php");
+					}
 				}
 			}
 		}else{
