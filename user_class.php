@@ -159,8 +159,7 @@
 			mysqli_close($link);
 
 			# Validación de formato de email
-			$email_pattern = "^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$";
-			if(eregi($email_pattern, $data['email'])){
+			if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
 				return "Formato de email inválido.";
 			}
 			# Verificación de emails
