@@ -177,17 +177,23 @@
 
 			# Verificación de existencia de datos
 			$name = ($data['name'] != "");
-			$category_id = ($data['category_id'] != "");
+			$category_id = ($data['category_id'] != "" && is_numeric($data['category_id']));
 			$description = ($data['description'] != "");
-			$price = ($data['price'] != "");
-			$expiration = ($data['expiration'] != "");
-			$user_id = ($data['user_id'] != "");
+			$price = ($data['price'] != "" && is_numeric($data['price']));
+      $date = date_parse($data['expiration']);
+      if ($date["error_count"] == 0 && checkdate($date["month"], $date["day"], $date["year"])){
+        $expiration = true;
+      }
+      if ($data['expiration'] == ""){
+        $expiration = false;
+      }
+			$user_id = ($data['user_id'] != "" && is_numeric($data['user_id']));
 			#$image = ($data['image'] != "");
 			#$image_type = ($data['image_type'] != "");
 
 			$condition = $name && $category_id && $description && $price && $expiration && $user_id;
 			if (!$condition){
-				return "Todos los campos tienen que estar completos.";
+				return "Todos los campos tienen que estar completos con valores válidos.";
 			}
 			return Product::NO_ERROR;
 		}
