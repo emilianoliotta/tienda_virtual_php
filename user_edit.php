@@ -34,6 +34,11 @@
 						<div class="panel centrar">
 							<br>
 							<h4 class="negrita">Editar<span class="destacado"> Cuenta</span></h4>
+              <div>
+                <p style="color: rgb(9, 143, 167); font-size: 0.8em;">
+                  El usuario ha accedido al sistema un total de <?php echo $current_user['cantidadAccesos']; ?> veces.
+                </p>
+              </div>
 							<hr>
 							<div class="container">
 								<form action="edit_user.php" method="POST" id="user-edit-form">

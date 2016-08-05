@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <?php
 	include_once("product_class.php");
+	include_once("comment_class.php");
 
 	if (isset($_GET['idProducto'])){
 		$data = Product::getProductData($_GET['idProducto']);
+		$comments = Comment::getComments($_GET['idProducto']);
 		if (is_null($data)){
 			header("Location: product_not_found.php"); #No se encontro el producto
 		}
@@ -60,6 +62,48 @@
 									<?php } } else { ?>
 										<a href="user_login.php" class="button">INICIAR SESIÓN PARA COMPRAR</a>
 								<?php } ?>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Comentarios -->
+
+				<div class="row">
+					<div class="col-xs-12 col-md-12">
+						<div class="well">
+							<h5 class="negrita">Comentarios</h5>
+							<hr>
+							<?php
+								while ($comment = mysqli_fetch_array ($comments)) {
+							?>
+							<div class="well">
+								<span class="negrita">Comentario: </span>
+								<span><?php echo $comment['comentario']; ?></span>
+							</div>
+							<?php
+								}
+							?>
+						</div>
+					</div>
+				</div>
+
+				<!-- Formulario de nuevo comentario -->
+
+				<div class="row">
+					<div class="col-xs-12 col-md-8 col-md-offset-2">
+						<div class="well">
+							<br>
+							<h5 class="negrita">Nuevo<span class="destacado"> Comentario</span></h5>
+							<hr>
+							<div class="container">
+								<form method="POST" action="new_comment.php" enctype="multipart/form-data" id="new-comment-form">
+									<div class="form-group">
+										<input type="text" required class="u-full-width" placeholder="Ingrese su comentario aquí" name="comment" autocomplete="off" autofocus>
+									</div>
+									<input type="hidden" name="product_id" value="<?php echo $_GET['idProducto'] ?>">
+									<button type="submit" class="button" name="submit">AGREGAR</button>
+								</form>
 							</div>
 						</div>
 					</div>

@@ -19,7 +19,16 @@
 			else {
 				$row = mysqli_fetch_array($result);
 				$email = $row['email'];
-				$_SESSION['email'] = $email;
+        $usuario_id = $row['idUsuario'];
+        $cantidadAccesos = $row['cantidadAccesos'];
+        $cantidadAccesos += 1;
+        $query = "UPDATE  `usuarios` SET  `cantidadAccesos` = '$cantidadAccesos' WHERE  `idUsuario` =  '$usuario_id'";
+        $result = mysqli_query($link, $query);
+        mysqli_close($link);
+        if(!$result){
+          throw new Exception("Error al contabilizar la sesión.", 1);
+        }
+        $_SESSION['email'] = $email;
 				return (User::current() != NULL);
 			}
 		}
@@ -131,7 +140,7 @@
 				include_once("connection.php");
 				$link = connect();
 				$email = $_SESSION['email'];
-				$query = "SELECT idUsuario, email, nombre, apellido, telefono FROM `usuarios` WHERE `email` = '$email'";
+				$query = "SELECT idUsuario, email, nombre, apellido, telefono, cantidadAccesos FROM `usuarios` WHERE `email` = '$email'";
 				$result = mysqli_fetch_array(mysqli_query($link, $query));
 				mysqli_close($link);
 				return $result;
